@@ -145,9 +145,9 @@ def preprocess_physionet2012(
     test_set = X[X["RecordID"].isin(test_set_ids)].sort_values(["RecordID", "Time"])
 
     # remove useless columns and turn into numpy arrays
-    train_X = train_set.drop(["RecordID", "Time"], axis=1)
-    val_X = val_set.drop(["RecordID", "Time"], axis=1)
-    test_X = test_set.drop(["RecordID", "Time"], axis=1)
+    # train_X = train_set.drop(["RecordID", "Time"], axis=1)
+    # val_X = val_set.drop(["RecordID", "Time"], axis=1)
+    # test_X = test_set.drop(["RecordID", "Time"], axis=1)
     # train_X, val_X, test_X = (
     #     train_set.to_numpy(),
     #     val_set.to_numpy(),
@@ -186,18 +186,18 @@ def preprocess_physionet2012(
         # general info
         "n_classes": 2,
         "n_steps": 48,
-        "n_features": train_X.shape[-1],
+        "n_features": train_set.shape[-1],
         # "scaler": scaler,
         # train set
-        "train_X": train_X,
+        "train_X": train_set,
         # "train_y": train_y.flatten(),
         "train_ICUType": train_ICUType,
         # val set
-        "val_X": val_X,
+        "val_X": val_set,
         # "val_y": val_y.flatten(),
         "val_ICUType": val_ICUType,
         # test set
-        "test_X": test_X,
+        "test_X": test_set,
         # "test_y": test_y.flatten(),
         "test_ICUType": test_ICUType,
     }
