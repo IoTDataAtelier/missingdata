@@ -144,9 +144,13 @@ def preprocess_physionet2012(
     test_set = X[X["RecordID"].isin(test_set_ids)].sort_values(["RecordID", "Time"])
 
     #dividir o conjunto de teste nos subgrupos
+
+    #Divisão por gênero
+
     female_gender_test_ids = test_set[test_set["Gender"] == 0.0]
     female_gender_test_ids  = female_gender_test_ids["RecordID"]
     female_gender_test = test_set[test_set["RecordID"].isin(female_gender_test_ids)]
+
 
     male_gender_test_ids = test_set[test_set["Gender"] == 1.0]
     male_gender_test_ids  = male_gender_test_ids["RecordID"]
@@ -155,6 +159,19 @@ def preprocess_physionet2012(
     undefined_gender_test_ids = test_set[test_set["Gender"] == -1.0]
     undefined_gender_test_ids  = undefined_gender_test_ids["RecordID"]
     undefined_gender_test = test_set[test_set["RecordID"].isin(undefined_gender_test_ids)]
+
+    #Divisão por idade
+
+    more_than_or_equal_to_65_test_ids = test_set[test_set["Age"] >= 65]
+    more_than_or_equal_to_65_test_ids = more_than_or_equal_to_65_test_ids[more_than_or_equal_to_65_test_ids["Time"] == 0.0]
+    more_than_or_equal_to_65_test_ids = more_than_or_equal_to_65_test_ids["RecordID"]
+    more_than_or_equal_to_65_test = test_set[test_set["RecordID"].isin(more_than_or_equal_to_65_test_ids)]
+
+    less_than_65_test_ids = test_set[test_set["Age"] < 65]
+    less_than_65_test_ids = less_than_65_test_ids[less_than_65_test_ids["Time"] == 0.0]
+    less_than_65_test_ids = less_than_65_test_ids["RecordID"]
+    less_than_65_test = test_set[test_set["RecordID"].isin(less_than_65_test_ids)]
+
 
     teste = 'teste'
 
