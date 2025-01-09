@@ -173,6 +173,27 @@ def preprocess_physionet2012(
     less_than_65_test = test_set[test_set["RecordID"].isin(less_than_65_test_ids)]
 
 
+    ICUType_1 = test_set[test_set['ICUType'] == 1.0]
+    ICUType_1 = ICUType_1[ICUType_1["Time"] == 0.0]
+    ICUType_1_ids = ICUType_1["RecordID"]
+    ICUType_1_measurements = test_set[test_set["RecordID"].isin(ICUType_1_ids)]
+
+    ICUType_2 = test_set[test_set['ICUType'] == 2.0]
+    ICUType_2 = ICUType_2[ICUType_2["Time"] == 0.0]
+    ICUType2_ids = ICUType_2["RecordID"]
+    ICUType_2_measurements = test_set[test_set["RecordID"].isin(ICUType2_ids)]
+
+    ICUType_3 = test_set[test_set['ICUType'] == 3.0]
+    ICUType_3 = ICUType_3[ICUType_3["Time"] == 0.0]
+    ICUType_3_ids = ICUType_3["RecordID"]
+    ICUType_3_measurements = test_set[test_set["RecordID"].isin(ICUType_3_ids)]
+
+    ICUType_4 = test_set[test_set['ICUType'] == 4.0]
+    ICUType_4 = ICUType_4[ICUType_4["Time"] == 0.0]
+    ICUType_4_ids = ICUType_4["RecordID"]
+    ICUType_4_measurements = train_X[train_X["RecordID"].isin(ICUType_4_ids)]
+
+
     teste = 'teste'
 
     # remove useless columns and turn into numpy arrays
