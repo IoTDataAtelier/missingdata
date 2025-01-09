@@ -172,6 +172,7 @@ def preprocess_physionet2012(
     less_than_65_test_ids = less_than_65_test_ids["RecordID"]
     less_than_65_test = test_set[test_set["RecordID"].isin(less_than_65_test_ids)]
 
+    #Divisão por ICUType
 
     ICUType_1 = test_set[test_set['ICUType'] == 1.0]
     ICUType_1 = ICUType_1[ICUType_1["Time"] == 0.0]
@@ -191,10 +192,65 @@ def preprocess_physionet2012(
     ICUType_4 = test_set[test_set['ICUType'] == 4.0]
     ICUType_4 = ICUType_4[ICUType_4["Time"] == 0.0]
     ICUType_4_ids = ICUType_4["RecordID"]
-    ICUType_4_measurements = train_X[train_X["RecordID"].isin(ICUType_4_ids)]
+    ICUType_4_measurements = test_set[test_set["RecordID"].isin(ICUType_4_ids)]
+
+    #Divisão por IMC
+
+    def classify_BMI(BMI):
+        if BMI <= 18.5:
+            return "Baixo peso"
+        elif BMI >= 18.6 and BMI <= 24.9:
+            return "Peso normal"
+        elif BMI >= 25 and BMI <= 29.9:
+            return "Sobrepeso"
+        elif BMI >= 30 and BMI <= 34.9:
+            return "Obesidade grau 1"
+        elif BMI >= 35 and BMI <= 39.9:
+            return "Obesidade grau 2"
+        elif BMI >= 40:
+            return "Obesidade grau 3"
+        
+    filtered_test = test_set[(test_set['Height'] != -1) & (test_set['Weight'] != -1) & (test_set['Height'].notna()) & (test_set['Weight'].notna())] 
+
+    filtered_test_metros = filtered_test.copy()
+    filtered_test_metros["Height"] = filtered_test_metros["Height"]/100
+
+    bmi_data_test = filtered_test_metros
+    bmi_data_test["BMI"] = round(filtered_test_metros["Weight"] / (filtered_test_metros["Height"]**2), 1)
+    bmi_data_test["Classificacao"] = bmi_data_test["BMI"].apply(classify_BMI)
+
+    bmi_data_test = bmi_data_test.groupby("RecordID").first().reset_index()
+
+    classificacao_undefined_ids = bmi_data_test["RecordID"]
+    classificacao_undefined_test = test_set[~test_set["RecordID"].isin(classificacao_undefined_ids)]
+
+    classificacao_baixo_peso_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Baixo peso"]
+    classificacao_baixo_peso_ids = classificacao_baixo_peso_ids["RecordID"]
+    classificacao_baixo_peso_test = test_set[test_set["RecordID"].isin(classificacao_baixo_peso_ids)]
+
+    classificacao_normal_peso_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Peso normal"]
+    classificacao_normal_peso_ids = classificacao_normal_peso_ids["RecordID"]
+    classificacao_normal_peso_test = test_set[test_set["RecordID"].isin(classificacao_normal_peso_ids)]
+
+    classificacao_sobrepeso_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Sobrepeso"]
+    classificacao_sobrepeso_ids = classificacao_sobrepeso_ids["RecordID"]
+    classificacao_sobrepeso_test = test_set[test_set["RecordID"].isin(classificacao_sobrepeso_ids)]
+
+    classificacao_obesidade_1_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 1"]
+    classificacao_obesidade_1_ids = classificacao_obesidade_1_ids["RecordID"]
+    classificacao_obesidade_1_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_1_ids)]
+
+    classificacao_obesidade_2_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 2"]
+    classificacao_obesidade_2_ids = classificacao_obesidade_2_ids["RecordID"]
+    classificacao_obesidade_2_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_2_ids)]
+
+    classificacao_obesidade_3_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 3"]
+    classificacao_obesidade_3_ids = classificacao_obesidade_3_ids["RecordID"]
+    classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
 
 
-    teste = 'teste'
+
+
 
     # remove useless columns and turn into numpy arrays
     train_set = train_set.drop(["RecordID", "Time"], axis=1)
