@@ -177,22 +177,22 @@ def preprocess_physionet2012(
     ICUType_1 = test_set[test_set['ICUType'] == 1.0]
     ICUType_1 = ICUType_1[ICUType_1["Time"] == 0.0]
     ICUType_1_ids = ICUType_1["RecordID"]
-    ICUType_1_measurements = test_set[test_set["RecordID"].isin(ICUType_1_ids)]
+    ICUType_1_test = test_set[test_set["RecordID"].isin(ICUType_1_ids)]
 
     ICUType_2 = test_set[test_set['ICUType'] == 2.0]
     ICUType_2 = ICUType_2[ICUType_2["Time"] == 0.0]
     ICUType2_ids = ICUType_2["RecordID"]
-    ICUType_2_measurements = test_set[test_set["RecordID"].isin(ICUType2_ids)]
+    ICUType_2_test = test_set[test_set["RecordID"].isin(ICUType2_ids)]
 
     ICUType_3 = test_set[test_set['ICUType'] == 3.0]
     ICUType_3 = ICUType_3[ICUType_3["Time"] == 0.0]
     ICUType_3_ids = ICUType_3["RecordID"]
-    ICUType_3_measurements = test_set[test_set["RecordID"].isin(ICUType_3_ids)]
+    ICUType_3_test = test_set[test_set["RecordID"].isin(ICUType_3_ids)]
 
     ICUType_4 = test_set[test_set['ICUType'] == 4.0]
     ICUType_4 = ICUType_4[ICUType_4["Time"] == 0.0]
     ICUType_4_ids = ICUType_4["RecordID"]
-    ICUType_4_measurements = test_set[test_set["RecordID"].isin(ICUType_4_ids)]
+    ICUType_4_test = test_set[test_set["RecordID"].isin(ICUType_4_ids)]
 
     #Divisão por IMC
 
@@ -249,13 +249,52 @@ def preprocess_physionet2012(
     classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
 
 
+    if (
+         features is None
+    ):  # if features are not specified, we use all features except the static features, e.g. age
+         X = X.drop(data["static_features"], axis=1)
+    else:  # if features are specified by users, only use the specified features
+         # check if the given features are valid
+         features_set = set(features)
+         if not all_features.issuperset(features_set):
+             intersection_feats = all_features.intersection(features_set)
+             difference = features_set.difference(intersection_feats)
+             raise ValueError(
+                 f"Given features contain invalid features that not in the dataset: {difference}"
+             )
+         # check if the given features contain necessary features for preprocessing
+         if "RecordID" not in features:
+             features.append("RecordID")
+         if "ICUType" not in features:
+             features.append("ICUType")
+         if "Time" not in features:
+             features.append("Time")
+         # select the specified features finally
+         X = X[features]
 
-
+    X = X.drop(["level_1", "ICUType"], axis=1)
 
     # remove useless columns and turn into numpy arrays
     train_set = train_set.drop(["RecordID", "Time"], axis=1)
     val_set = val_set.drop(["RecordID", "Time"], axis=1)
     test_set = test_set.drop(["RecordID", "Time"], axis=1)
+    female_gender_test = female_gender_test.drop(["RecordID", "Time"], axis=1)
+    male_gender_test = male_gender_test.drop(["RecordID", "Time"], axis=1)
+    undefined_gender_test = undefined_gender_test.drop(["RecordID", "Time"], axis=1)
+    more_than_or_equal_to_65_test = more_than_or_equal_to_65_test.drop(["RecordID", "Time"], axis=1)
+    less_than_65_test = less_than_65_test.drop(["RecordID", "Time"], axis=1)
+    ICUType_1_test = ICUType_1_test.drop(["RecordID", "Time"], axis=1)
+    ICUType_2_test = ICUType_2_test.drop(["RecordID", "Time"], axis=1)
+    ICUType_3_test = ICUType_3_test.drop(["RecordID", "Time"], axis=1)
+    ICUType_4_test = ICUType_4_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_undefined_test = classificacao_undefined_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_baixo_peso_test = classificacao_baixo_peso_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_normal_peso_test = classificacao_normal_peso_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_sobrepeso_test = classificacao_sobrepeso_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_obesidade_1_test = classificacao_obesidade_1_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_obesidade_2_test = classificacao_obesidade_2_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_obesidade_3_test = classificacao_obesidade_3_test.drop(["RecordID", "Time"], axis=1)
+
     train_X, val_X, test_X = (
         train_set.to_numpy(),
         val_set.to_numpy(),
