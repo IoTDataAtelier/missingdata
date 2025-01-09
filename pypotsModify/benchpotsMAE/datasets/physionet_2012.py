@@ -295,10 +295,26 @@ def preprocess_physionet2012(
     classificacao_obesidade_2_test = classificacao_obesidade_2_test.drop(["RecordID", "Time"], axis=1)
     classificacao_obesidade_3_test = classificacao_obesidade_3_test.drop(["RecordID", "Time"], axis=1)
 
-    train_X, val_X, test_X = (
+    train_X, val_X, test_X, female_gender_test_X, male_gender_test_X, undefined_gender_test_X, more_than_or_equal_to_65_test_X, less_than_65_test_X, ICUType_1_test_X, ICUType_2_test_X, ICUType_3_test_X, ICUType_4_test_X, classificacao_undefined_test_X, classificacao_baixo_peso_test_X, classificacao_normal_peso_test_X, classificacao_sobrepeso_test_X, classificacao_obesidade_1_test_X, classificacao_obesidade_2_test_X, classificacao_obesidade_3_test_X= (
         train_set.to_numpy(),
         val_set.to_numpy(),
         test_set.to_numpy(),
+        female_gender_test.to_numpy(),
+        male_gender_test.to_numpy(),
+        undefined_gender_test.to_numpy(),
+        more_than_or_equal_to_65_test.to_numpy(),
+        less_than_65_test.to_numpy(),
+        ICUType_1_test.to_numpy(),
+        ICUType_2_test.to_numpy(),
+        ICUType_3_test.to_numpy(),
+        ICUType_4_test.to_numpy(),
+        classificacao_undefined_test.to_numpy(),
+        classificacao_baixo_peso_test.to_numpy(),
+        classificacao_normal_peso_test.to_numpy(),
+        classificacao_sobrepeso_test.to_numpy(),
+        classificacao_obesidade_1_test.to_numpy(),
+        classificacao_obesidade_2_test.to_numpy(),
+        classificacao_obesidade_3_test.to_numpy()
     )
 
     # normalization
