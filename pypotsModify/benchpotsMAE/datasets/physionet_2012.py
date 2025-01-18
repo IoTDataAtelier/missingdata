@@ -379,7 +379,25 @@ def preprocess_physionet2012(
     classificacao_obesidade_2_test_y = y[y.index.isin(classificacao_obesidade_2_ids)].sort_index()
     classificacao_obesidade_3_test_y = y[y.index.isin(classificacao_obesidade_3_ids)].sort_index()
 
-    train_y, val_y, test_y = train_y.to_numpy(), val_y.to_numpy(), test_y.to_numpy()
+    train_y = train_y.to_numpy()
+    val_y = val_y.to_numpy() 
+    test_y = test_y.to_numpy()
+    female_gender_test_y = female_gender_test_y.to_numpy() 
+    male_gender_test_y = male_gender_test_y.to_numpy()
+    undefined_gender_test_y = undefined_gender_test_y.to_numpy()
+    more_than_or_equal_to_65_test_y = more_than_or_equal_to_65_test_y.to_numpy()
+    less_than_65_test_y = less_than_65_test_y.to_numpy()
+    ICUType_1_test_y = ICUType_1_test_y.to_numpy()
+    ICUType_2_test_y = ICUType_2_test_y.to_numpy()
+    ICUType_3_test_y = ICUType_3_test_y.to_numpy()
+    ICUType_4_test_y = ICUType_4_test_y.to_numpy()
+    classificacao_undefined_test_y = classificacao_undefined_test_y.to_numpy()
+    classificacao_baixo_peso_test_y = classificacao_baixo_peso_test_y.to_numpy()
+    classificacao_normal_peso_test_y = classificacao_normal_peso_test_y.to_numpy()
+    classificacao_obesidade_1_test_y = classificacao_obesidade_1_test_y.to_numpy()
+    classificacao_obesidade_2_test_y = classificacao_obesidade_2_test_y.to_numpy()
+    classificacao_obesidade_3_test_y = classificacao_obesidade_3_test_y.to_numpy()
+   
 
     # fetch ICUType for train/val/test sets
     train_ICUType = ICUType[ICUType.index.isin(train_set_ids)].sort_index()
