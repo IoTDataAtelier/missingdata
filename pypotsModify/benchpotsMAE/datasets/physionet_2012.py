@@ -355,6 +355,7 @@ def preprocess_physionet2012(
     classificacao_undefined_test_X = classificacao_undefined_test_X.reshape(len(classificacao_undefined_ids), 48, -1)
     classificacao_baixo_peso_test_X = classificacao_baixo_peso_test_X.reshape(len(classificacao_baixo_peso_ids), 48, -1)
     classificacao_normal_peso_test_X = classificacao_normal_peso_test_X.reshape(len(classificacao_normal_peso_ids), 48, -1)
+    classificacao_sobrepeso_test_X = classificacao_sobrepeso_test_X.reshape(len(classificacao_sobrepeso_ids), 48, -1)
     classificacao_obesidade_1_test_X = classificacao_obesidade_1_test_X.reshape(len(classificacao_obesidade_1_ids), 48, -1)
     classificacao_obesidade_2_test_X = classificacao_obesidade_2_test_X.reshape(len(classificacao_obesidade_2_ids), 48, -1)
     classificacao_obesidade_3_test_X = classificacao_obesidade_3_test_X.reshape(len(classificacao_obesidade_3_ids), 48, -1)
@@ -403,10 +404,43 @@ def preprocess_physionet2012(
     train_ICUType = ICUType[ICUType.index.isin(train_set_ids)].sort_index()
     val_ICUType = ICUType[ICUType.index.isin(val_set_ids)].sort_index()
     test_ICUType = ICUType[ICUType.index.isin(test_set_ids)].sort_index()
-    train_ICUType, val_ICUType, test_ICUType = (
+    test_ICUType_female_gender = ICUType[ICUType.index.isin(female_gender_test_ids)].sort_index()
+    test_ICUType_male_gender = ICUType[ICUType.index.isin(male_gender_test_ids)].sort_index()
+    test_ICUType_undefined_gender = ICUType[ICUType.index.isin(undefined_gender_test_ids)].sort_index()
+    test_ICUType_more_than_or_equal_to_65 = ICUType[ICUType.index.isin(more_than_or_equal_to_65_test_ids)].sort_index()
+    test_ICUType_less_than_65 = ICUType[ICUType.index.isin(less_than_65_test_ids)].sort_index()
+    test_ICUType_1 = ICUType[ICUType.index.isin(ICUType_1_ids)].sort_index()
+    test_ICUType_2 = ICUType[ICUType.index.isin(ICUType2_ids)].sort_index()
+    test_ICUType_3 = ICUType[ICUType.index.isin(ICUType_3_ids)].sort_index()
+    test_ICUType_4 = ICUType[ICUType.index.isin(ICUType_4_ids)].sort_index()
+    test_ICUType_classificacao_undefined = ICUType[ICUType.index.isin(classificacao_undefined_ids)].sort_index()
+    test_ICUType_classificao_baixo_peso = ICUType[ICUType.index.isin(classificacao_baixo_peso_ids)].sort_index()
+    test_ICUType_classificacao_normal_peso = ICUType[ICUType.index.isin(classificacao_normal_peso_ids)].sort_index()
+    test_ICUType_classificacao_sobrepeso = ICUType[ICUType.index.isin(classificacao_sobrepeso_ids)].sort_index()
+    test_ICUType_classificacao_obesidade_1 = ICUType[ICUType.index.isin(classificacao_obesidade_1_ids)].sort_index()
+    test_ICUType_classificacao_obesidade_2 = ICUType[ICUType.index.isin(classificacao_obesidade_2_ids)].sort_index()
+    test_ICUType_classificacao_obesidade_3 = ICUType[ICUType.index.isin(classificacao_obesidade_3_ids)].sort_index()
+
+    train_ICUType, val_ICUType, test_ICUType, test_ICUType_female_gender, test_ICUType_male_gender, test_ICUType_undefined_gender,  test_ICUType_more_than_or_equal_to_65, test_ICUType_less_than_65, test_ICUType_1, test_ICUType_2, test_ICUType_3, test_ICUType_4, test_ICUType_classificacao_undefined, test_ICUType_classificao_baixo_peso, test_ICUType_classificacao_normal_peso, test_ICUType_classificacao_sobrepeso, test_ICUType_classificacao_obesidade_1, test_ICUType_classificacao_obesidade_2, test_ICUType_classificacao_obesidade_3= (
         train_ICUType.to_numpy(),
         val_ICUType.to_numpy(),
         test_ICUType.to_numpy(),
+        test_ICUType_female_gender.to_numpy(),
+        test_ICUType_male_gender.to_numpy(),
+        test_ICUType_undefined_gender.to_numpy(),
+        test_ICUType_more_than_or_equal_to_65.to_numpy(),
+        test_ICUType_less_than_65.to_numpy(),
+        test_ICUType_1.to_numpy(),
+        test_ICUType_2.to_numpy(),
+        test_ICUType_3.to_numpy(),
+        test_ICUType_4.to_numpy(),
+        test_ICUType_classificacao_undefined.to_numpy(),
+        test_ICUType_classificao_baixo_peso.to_numpy(),
+        test_ICUType_classificacao_normal_peso.to_numpy(),
+        test_ICUType_classificacao_sobrepeso.to_numpy(),
+        test_ICUType_classificacao_obesidade_1.to_numpy(),
+        test_ICUType_classificacao_obesidade_2.to_numpy(),
+        test_ICUType_classificacao_obesidade_3.to_numpy()
     )
 
     # assemble the final processed data into a dictionary
