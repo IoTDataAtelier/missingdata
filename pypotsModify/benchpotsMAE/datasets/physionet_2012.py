@@ -363,6 +363,22 @@ def preprocess_physionet2012(
     train_y = y[y.index.isin(train_set_ids)].sort_index()
     val_y = y[y.index.isin(val_set_ids)].sort_index()
     test_y = y[y.index.isin(test_set_ids)].sort_index()
+    female_gender_test_y = y[y.index.isin(female_gender_test_ids)].sort_index()
+    male_gender_test_y = y[y.index.isin(male_gender_test_ids)].sort_index()
+    undefined_gender_test_y = y[y.index.isin(undefined_gender_test_ids)].sort_index()
+    more_than_or_equal_to_65_test_y = y[y.index.isin(more_than_or_equal_to_65_test_ids)].sort_index()
+    less_than_65_test_y = y[y.index.isin(less_than_65_test_ids)].sort_index()
+    ICUType_1_test_y = y[y.index.isin(ICUType_1_ids)].sort_index()
+    ICUType_2_test_y = y[y.index.isin(ICUType2_ids)].sort_index()
+    ICUType_3_test_y = y[y.index.isin(ICUType_3_ids)].sort_index()
+    ICUType_4_test_y = y[y.index.isin(ICUType_4_ids)].sort_index()
+    classificacao_undefined_test_y = y[y.index.isin(classificacao_undefined_ids)].sort_index()
+    classificacao_baixo_peso_test_y = y[y.index.isin(classificacao_baixo_peso_ids)].sort_index()
+    classificacao_normal_peso_test_y = y[y.index.isin(classificacao_normal_peso_ids)].sort_index()
+    classificacao_obesidade_1_test_y = y[y.index.isin(classificacao_obesidade_1_ids)].sort_index()
+    classificacao_obesidade_2_test_y = y[y.index.isin(classificacao_obesidade_2_ids)].sort_index()
+    classificacao_obesidade_3_test_y = y[y.index.isin(classificacao_obesidade_3_ids)].sort_index()
+
     train_y, val_y, test_y = train_y.to_numpy(), val_y.to_numpy(), test_y.to_numpy()
 
     # fetch ICUType for train/val/test sets
