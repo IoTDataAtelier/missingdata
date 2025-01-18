@@ -376,6 +376,7 @@ def preprocess_physionet2012(
     classificacao_undefined_test_y = y[y.index.isin(classificacao_undefined_ids)].sort_index()
     classificacao_baixo_peso_test_y = y[y.index.isin(classificacao_baixo_peso_ids)].sort_index()
     classificacao_normal_peso_test_y = y[y.index.isin(classificacao_normal_peso_ids)].sort_index()
+    classificacao_sobrepeso_test_y = y[y.index.isin(classificacao_sobrepeso_ids)].sort_index()
     classificacao_obesidade_1_test_y = y[y.index.isin(classificacao_obesidade_1_ids)].sort_index()
     classificacao_obesidade_2_test_y = y[y.index.isin(classificacao_obesidade_2_ids)].sort_index()
     classificacao_obesidade_3_test_y = y[y.index.isin(classificacao_obesidade_3_ids)].sort_index()
@@ -395,6 +396,7 @@ def preprocess_physionet2012(
     classificacao_undefined_test_y = classificacao_undefined_test_y.to_numpy()
     classificacao_baixo_peso_test_y = classificacao_baixo_peso_test_y.to_numpy()
     classificacao_normal_peso_test_y = classificacao_normal_peso_test_y.to_numpy()
+    classificacao_sobrepeso_test_y = classificacao_sobrepeso_test_y.to_numpy()
     classificacao_obesidade_1_test_y = classificacao_obesidade_1_test_y.to_numpy()
     classificacao_obesidade_2_test_y = classificacao_obesidade_2_test_y.to_numpy()
     classificacao_obesidade_3_test_y = classificacao_obesidade_3_test_y.to_numpy()
@@ -462,6 +464,20 @@ def preprocess_physionet2012(
         "test_X": test_X,
         "test_y": test_y.flatten(),
         "test_ICUType": test_ICUType.flatten(),
+        "female_gender_test_X":  female_gender_test_X,
+        "female_gender_test_y":  female_gender_test_y.flatten(),
+        "undefined_gender_test_X": undefined_gender_test_X,
+        "undefined_gender_test_y": undefined_gender_test_y.flatten(),
+        "more_than_or_equal_to_65_test_X": more_than_or_equal_to_65_test_X,
+        "more_than_or_equal_to_65_test_y": more_than_or_equal_to_65_test_y.flatten(),
+        "less_than_65_test_X": less_than_65_test_X,
+        "less_than_65_test_y": less_than_65_test_y.flatten(),
+        "ICUType_1_test_X" : ICUType_1_test_X,
+        "ICUType_1_test_y": ICUType_1_test_y.flatten(),
+        "ICUType_2_test_X": ICUType_2_test_X,
+        "ICUType_2_test_y": ICUType_2_test_y.flatten(),
+        "ICUType_3_test_X": ICUType_3_test_X,
+        "ICUType_3_test_y": ICUType_3_test_y.flatten()
     }
 
     if rate > 0:
