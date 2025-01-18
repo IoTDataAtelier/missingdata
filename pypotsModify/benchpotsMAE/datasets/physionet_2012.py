@@ -477,7 +477,30 @@ def preprocess_physionet2012(
         "ICUType_2_test_X": ICUType_2_test_X,
         "ICUType_2_test_y": ICUType_2_test_y.flatten(),
         "ICUType_3_test_X": ICUType_3_test_X,
-        "ICUType_3_test_y": ICUType_3_test_y.flatten()
+        "ICUType_3_test_y": ICUType_3_test_y.flatten(),
+        "ICUType_4_test_X": ICUType_4_test_X,
+        "ICUType_4_test_y": ICUType_4_test_y.flatten(),
+        "test_ICUType_4": test_ICUType_4.flatten(),
+        "classificacao_undefined_test_X": classificacao_undefined_test_X,
+        "classificacao_undefined_test_y": classificacao_undefined_test_y.flatten(),
+        "test_ICUType_classificacao_undefined": test_ICUType_classificacao_undefined.flatten(),
+        "classificacao_baixo_peso_test_X": classificacao_baixo_peso_test_X,
+        "classificacao_baixo_peso_test_y": classificacao_baixo_peso_test_y.flatten(),
+        "test_ICUType_classificao_baixo_peso": test_ICUType_classificao_baixo_peso.flatten(),
+        "classificacao_normal_peso_test_X": classificacao_normal_peso_test_X,
+        "classificacao_normal_peso_test_y": classificacao_normal_peso_test_y.flatten(),
+        "test_ICUType_classificacao_normal_peso": test_ICUType_classificacao_normal_peso.flatten(),
+        "classificacao_sobrepeso_test_X": classificacao_sobrepeso_test_X,
+        "test_ICUType_classificacao_sobrepeso": test_ICUType_classificacao_sobrepeso.flatten(),
+        "classificacao_obesidade_1_test_X": classificacao_obesidade_1_test_X,
+        "classificacao_obesidade_1_test_y": classificacao_obesidade_1_test_y.flatten(),
+        "test_ICUType_classificacao_obesidade_1": test_ICUType_classificacao_obesidade_1.flatten(),
+        "classificacao_obesidade_2_test_X": classificacao_obesidade_2_test_X,
+        "classificacao_obesidade_2_test_y": classificacao_obesidade_2_test_y.flatten(),
+        "test_ICUType_classificacao_obesidade_2": test_ICUType_classificacao_obesidade_2.flatten(),
+        "classificacao_obesidade_3_test_X": classificacao_obesidade_3_test_X,
+        "classificacao_obesidade_3_test_y": classificacao_obesidade_3_test_y.flatten(),
+        "test_ICUType_classificacao_obesidade_3": test_ICUType_classificacao_obesidade_3.flatten()
     }
 
     if rate > 0:
