@@ -466,6 +466,8 @@ def preprocess_physionet2012(
         "test_ICUType": test_ICUType.flatten(),
         "female_gender_test_X":  female_gender_test_X,
         "female_gender_test_y":  female_gender_test_y.flatten(),
+        "male_gender_test_X": male_gender_test_X,
+        "male_gender_test_y": male_gender_test_y.flatten(),
         "undefined_gender_test_X": undefined_gender_test_X,
         "undefined_gender_test_y": undefined_gender_test_y.flatten(),
         "more_than_or_equal_to_65_test_X": more_than_or_equal_to_65_test_X,
