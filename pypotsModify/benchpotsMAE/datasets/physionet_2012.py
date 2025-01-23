@@ -577,6 +577,22 @@ def preprocess_physionet2012(
         processed_dataset["classificacao_obesidade_3_test_X"] = classificacao_obesidade_3_test_X
     
         processed_dataset["test_X_ori"] = test_X_ori
+        processed_dataset["female_gender_test_X_ori"] = female_gender_test_X_ori
+        processed_dataset["male_gender_test_X_ori"] = male_gender_test_X_ori
+        processed_dataset["undefined_gender_test_X_ori"] = undefined_gender_test_X_ori
+        processed_dataset["more_than_or_equal_to_65_test_X_ori"] = more_than_or_equal_to_65_test_X_ori 
+        processed_dataset["less_than_65_test_X_ori"] = less_than_65_test_X_ori
+        processed_dataset["test_ICUType_1_ori"] = test_ICUType_1_ori
+        processed_dataset["test_ICUType_2_ori"] = test_ICUType_2_ori
+        processed_dataset["test_ICUType_3_ori"] = test_ICUType_3_ori
+        processed_dataset["test_ICUType_4_ori"] = test_ICUType_4_ori
+        processed_dataset["classificacao_undefined_test_X_ori"] = classificacao_undefined_test_X_ori 
+        processed_dataset["classificacao_baixo_peso_test_X_ori"] = classificacao_baixo_peso_test_X_ori
+        processed_dataset["classificacao_normal_peso_test_X_ori"] = classificacao_normal_peso_test_X_ori
+        processed_dataset["classificacao_sobrepeso_test_X_ori"] = classificacao_sobrepeso_test_X_ori
+        processed_dataset["classificacao_obesidade_1_test_X_ori"] = classificacao_obesidade_1_test_X_ori
+        processed_dataset["classificacao_obesidade_2_test_X_ori"] = classificacao_obesidade_2_test_X_ori
+        processed_dataset["classificacao_obesidade_3_test_X_ori"] = classificacao_obesidade_3_test_X_ori
 
         test_X_indicating_mask = np.isnan(test_X_ori) ^ np.isnan(test_X)
         logger.info(
