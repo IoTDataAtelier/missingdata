@@ -598,10 +598,10 @@ def preprocess_physionet2012(
         processed_dataset["undefined_gender_test_X_ori"] = undefined_gender_test_X_ori
         processed_dataset["more_than_or_equal_to_65_test_X_ori"] = more_than_or_equal_to_65_test_X_ori 
         processed_dataset["less_than_65_test_X_ori"] = less_than_65_test_X_ori
-        processed_dataset["ICUType_1_test_X_ori"] = ICUType_1_test_X
-        processed_dataset["ICUType_1_test_X_ori"] = ICUType_2_test_X
-        processed_dataset["ICUType_1_test_X_ori"] = ICUType_3_test_X
-        processed_dataset["ICUType_1_test_X_ori"] = ICUType_4_test_X
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_1_test_X_ori
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_2_test_X_ori
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_3_test_X_ori
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_4_test_X_ori
         processed_dataset["classificacao_undefined_test_X_ori"] = classificacao_undefined_test_X_ori 
         processed_dataset["classificacao_baixo_peso_test_X_ori"] = classificacao_baixo_peso_test_X_ori
         processed_dataset["classificacao_normal_peso_test_X_ori"] = classificacao_normal_peso_test_X_ori
