@@ -531,6 +531,22 @@ def preprocess_physionet2012(
         val_X = create_missingness(val_X, rate, pattern, **kwargs)
         # mask values in the test set as ground truth
         test_X = create_missingness(test_X, rate, pattern, **kwargs)
+        female_gender_test_X = create_missingness(female_gender_test_X, rate, pattern, **kwargs)
+        male_gender_test_X = create_missingness(male_gender_test_X, rate, pattern, **kwargs)
+        undefined_gender_test_X = create_missingness(undefined_gender_test_X, rate, pattern, **kwargs)
+        more_than_or_equal_to_65_test_X = create_missingness(more_than_or_equal_to_65_test_X, rate, pattern, **kwargs)
+        less_than_65_test_X = less_than_65_test_X = create_missingness(less_than_65_test_X, rate, pattern, **kwargs)
+        test_ICUType_1 = create_missingness(test_ICUType_1, rate, pattern, **kwargs)
+        test_ICUType_2 = create_missingness(test_ICUType_2, rate, pattern, **kwargs)
+        test_ICUType_3 = create_missingness(test_ICUType_3, rate, pattern, **kwargs)
+        test_ICUType_4 = create_missingness(test_ICUType_4, rate, pattern, **kwargs)
+        classificacao_undefined_test_X = create_missingness(classificacao_undefined_ids, rate, pattern, **kwargs)
+        classificacao_baixo_peso_test_X = create_missingness(classificacao_baixo_peso_test_X, rate, pattern, **kwargs)
+        classificacao_normal_peso_test_X = create_missingness(classificacao_normal_peso_test_X, rate, pattern, **kwargs)
+        classificacao_sobrepeso_test_X = create_missingness(classificacao_sobrepeso_test_X, rate, pattern, **kwargs)
+        classificacao_obesidade_1_test_X = create_missingness(classificacao_obesidade_1_test_X, rate, pattern, **kwargs)
+        classificacao_obesidade_2_test_X = create_missingness(classificacao_obesidade_2_test_X, rate, pattern, **kwargs)
+        classificacao_obesidade_3_test_X = create_missingness(classificacao_obesidade_3_test_X, rate, pattern, **kwargs)
 
         processed_dataset["train_X"] = train_X
 
