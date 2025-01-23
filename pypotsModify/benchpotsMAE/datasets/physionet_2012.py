@@ -223,6 +223,9 @@ def preprocess_physionet2012(
 
     classificacao_undefined_ids = bmi_data_test["RecordID"]
     classificacao_undefined_test = test_set[~test_set["RecordID"].isin(classificacao_undefined_ids)]
+    classificacao_undefined_ids = classificacao_undefined_test.copy()
+    classificacao_undefined_ids = classificacao_undefined_ids.groupby("RecordID").first().reset_index()
+    classificacao_undefined_ids = classificacao_undefined_ids["RecordID"]
 
     classificacao_baixo_peso_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Baixo peso"]
     classificacao_baixo_peso_ids = classificacao_baixo_peso_ids["RecordID"]
