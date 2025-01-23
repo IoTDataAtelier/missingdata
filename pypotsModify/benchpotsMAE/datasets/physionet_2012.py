@@ -526,6 +526,22 @@ def preprocess_physionet2012(
         # hold out ground truth in the original data for evaluation
         val_X_ori = val_X
         test_X_ori = test_X
+        female_gender_test_X_ori = female_gender_test_X
+        male_gender_test_X_ori = male_gender_test_X
+        undefined_gender_test_X_ori = undefined_gender_test_X
+        more_than_or_equal_to_65_test_X_ori = more_than_or_equal_to_65_test_X
+        less_than_65_test_X_ori = less_than_65_test_X
+        ICUType_1_test_X_ori = ICUType_1_test_X
+        ICUType_2_test_X_ori = ICUType_2_test_X
+        ICUType_3_test_X_ori = ICUType_3_test_X
+        ICUType_4_test_X_ori = ICUType_4_test_X
+        classificacao_undefined_test_X_ori = classificacao_undefined_test_X
+        classificacao_baixo_peso_test_X_ori = classificacao_baixo_peso_test_X
+        classificacao_normal_peso_test_X_ori = classificacao_normal_peso_test_X
+        classificacao_sobrepeso_test_X_ori = classificacao_sobrepeso_test_X
+        classificacao_obesidade_1_test_X_ori = classificacao_obesidade_1_test_X
+        classificacao_obesidade_2_test_X_ori = classificacao_obesidade_2_test_X
+        classificacao_obesidade_3_test_X_ori = classificacao_obesidade_3_test_X
 
         # mask values in the validation set as ground truth
         val_X = create_missingness(val_X, rate, pattern, **kwargs)
@@ -536,10 +552,10 @@ def preprocess_physionet2012(
         undefined_gender_test_X = create_missingness(undefined_gender_test_X, rate, pattern, **kwargs)
         more_than_or_equal_to_65_test_X = create_missingness(more_than_or_equal_to_65_test_X, rate, pattern, **kwargs)
         less_than_65_test_X = less_than_65_test_X = create_missingness(less_than_65_test_X, rate, pattern, **kwargs)
-        test_ICUType_1 = create_missingness(test_ICUType_1, rate, pattern, **kwargs)
-        test_ICUType_2 = create_missingness(test_ICUType_2, rate, pattern, **kwargs)
-        test_ICUType_3 = create_missingness(test_ICUType_3, rate, pattern, **kwargs)
-        test_ICUType_4 = create_missingness(test_ICUType_4, rate, pattern, **kwargs)
+        ICUType_1_test_X = create_missingness(ICUType_1_test_X, rate, pattern, **kwargs)
+        ICUType_2_test_X = create_missingness(ICUType_2_test_X, rate, pattern, **kwargs)
+        ICUType_3_test_X = create_missingness(ICUType_3_test_X, rate, pattern, **kwargs)
+        ICUType_4_test_X = create_missingness(ICUType_4_test_X, rate, pattern, **kwargs)
         classificacao_undefined_test_X = create_missingness(classificacao_undefined_ids, rate, pattern, **kwargs)
         classificacao_baixo_peso_test_X = create_missingness(classificacao_baixo_peso_test_X, rate, pattern, **kwargs)
         classificacao_normal_peso_test_X = create_missingness(classificacao_normal_peso_test_X, rate, pattern, **kwargs)
@@ -582,10 +598,10 @@ def preprocess_physionet2012(
         processed_dataset["undefined_gender_test_X_ori"] = undefined_gender_test_X_ori
         processed_dataset["more_than_or_equal_to_65_test_X_ori"] = more_than_or_equal_to_65_test_X_ori 
         processed_dataset["less_than_65_test_X_ori"] = less_than_65_test_X_ori
-        processed_dataset["test_ICUType_1_ori"] = test_ICUType_1_ori
-        processed_dataset["test_ICUType_2_ori"] = test_ICUType_2_ori
-        processed_dataset["test_ICUType_3_ori"] = test_ICUType_3_ori
-        processed_dataset["test_ICUType_4_ori"] = test_ICUType_4_ori
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_1_test_X
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_2_test_X
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_3_test_X
+        processed_dataset["ICUType_1_test_X_ori"] = ICUType_4_test_X
         processed_dataset["classificacao_undefined_test_X_ori"] = classificacao_undefined_test_X_ori 
         processed_dataset["classificacao_baixo_peso_test_X_ori"] = classificacao_baixo_peso_test_X_ori
         processed_dataset["classificacao_normal_peso_test_X_ori"] = classificacao_normal_peso_test_X_ori
