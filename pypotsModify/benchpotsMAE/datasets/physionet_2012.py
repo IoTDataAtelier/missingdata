@@ -556,7 +556,7 @@ def preprocess_physionet2012(
         ICUType_2_test_X = create_missingness(ICUType_2_test_X, rate, pattern, **kwargs)
         ICUType_3_test_X = create_missingness(ICUType_3_test_X, rate, pattern, **kwargs)
         ICUType_4_test_X = create_missingness(ICUType_4_test_X, rate, pattern, **kwargs)
-        classificacao_undefined_test_X = create_missingness(classificacao_undefined_ids, rate, pattern, **kwargs)
+        classificacao_undefined_test_X = create_missingness(classificacao_undefined_test_X, rate, pattern, **kwargs)
         classificacao_baixo_peso_test_X = create_missingness(classificacao_baixo_peso_test_X, rate, pattern, **kwargs)
         classificacao_normal_peso_test_X = create_missingness(classificacao_normal_peso_test_X, rate, pattern, **kwargs)
         classificacao_sobrepeso_test_X = create_missingness(classificacao_sobrepeso_test_X, rate, pattern, **kwargs)
