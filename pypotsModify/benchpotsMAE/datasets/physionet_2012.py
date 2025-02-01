@@ -83,34 +83,34 @@ def preprocess_physionet2012(
         y = pd.concat([data["outcomes-a"], data["outcomes-b"], data["outcomes-c"]])
         y = y.loc[unique_ids]
 
-    # if (
-    #     features is None
-    # ):  # if features are not specified, we use all features except the static features, e.g. age
-    #     X = X.drop(data["static_features"], axis=1)
-    # else:  # if features are specified by users, only use the specified features
-    #     # check if the given features are valid
-    #     features_set = set(features)
-    #     if not all_features.issuperset(features_set):
-    #         intersection_feats = all_features.intersection(features_set)
-    #         difference = features_set.difference(intersection_feats)
-    #         raise ValueError(
-    #             f"Given features contain invalid features that not in the dataset: {difference}"
-    #         )
-    #     # check if the given features contain necessary features for preprocessing
-    #     if "RecordID" not in features:
-    #         features.append("RecordID")
-    #     if "ICUType" not in features:
-    #         features.append("ICUType")
-    #     if "Time" not in features:
-    #         features.append("Time")
-    #     # select the specified features finally
-    #     X = X[features]
+    if (
+         features is None
+    ):  # if features are not specified, we use all features except the static features, e.g. age
+         X = X.drop(data["static_features"], axis=1)
+    else:  # if features are specified by users, only use the specified features
+         # check if the given features are valid
+         features_set = set(features)
+         if not all_features.issuperset(features_set):
+             intersection_feats = all_features.intersection(features_set)
+             difference = features_set.difference(intersection_feats)
+             raise ValueError(
+                 f"Given features contain invalid features that not in the dataset: {difference}"
+             )
+         # check if the given features contain necessary features for preprocessing
+         if "RecordID" not in features:
+             features.append("RecordID")
+         if "ICUType" not in features:
+             features.append("ICUType")
+         if "Time" not in features:
+             features.append("Time")
+         # select the specified features finally
+         X = X[features]
 
     X = X.groupby("RecordID").apply(apply_func)
     X = X.drop("RecordID", axis=1)
     X = X.reset_index()
     ICUType = X[["RecordID", "ICUType"]].set_index("RecordID").dropna()
-    #X = X.drop(["level_1", "ICUType"], axis=1)
+    X = X.drop(["level_1", "ICUType"], axis=1)
 
     # PhysioNet2012 is an imbalanced dataset, hence, we separate positive and negative samples here for later splitting
     # This is to ensure positive and negative ratios are similar in train/val/test sets
@@ -252,30 +252,30 @@ def preprocess_physionet2012(
     classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
 
 
-    if (
-         features is None
-    ):  # if features are not specified, we use all features except the static features, e.g. age
-         X = X.drop(data["static_features"], axis=1)
-    else:  # if features are specified by users, only use the specified features
-         # check if the given features are valid
-         features_set = set(features)
-         if not all_features.issuperset(features_set):
-             intersection_feats = all_features.intersection(features_set)
-             difference = features_set.difference(intersection_feats)
-             raise ValueError(
-                 f"Given features contain invalid features that not in the dataset: {difference}"
-             )
-         # check if the given features contain necessary features for preprocessing
-         if "RecordID" not in features:
-             features.append("RecordID")
-         if "ICUType" not in features:
-             features.append("ICUType")
-         if "Time" not in features:
-             features.append("Time")
-         # select the specified features finally
-         X = X[features]
+    # if (
+    #      features is None
+    # ):  # if features are not specified, we use all features except the static features, e.g. age
+    #      X = X.drop(data["static_features"], axis=1)
+    # else:  # if features are specified by users, only use the specified features
+    #      # check if the given features are valid
+    #      features_set = set(features)
+    #      if not all_features.issuperset(features_set):
+    #          intersection_feats = all_features.intersection(features_set)
+    #          difference = features_set.difference(intersection_feats)
+    #          raise ValueError(
+    #              f"Given features contain invalid features that not in the dataset: {difference}"
+    #          )
+    #      # check if the given features contain necessary features for preprocessing
+    #      if "RecordID" not in features:
+    #          features.append("RecordID")
+    #      if "ICUType" not in features:
+    #          features.append("ICUType")
+    #      if "Time" not in features:
+    #          features.append("Time")
+    #      # select the specified features finally
+    #      X = X[features]
 
-    X = X.drop(["level_1", "ICUType"], axis=1)
+    # X = X.drop(["level_1", "ICUType"], axis=1)
 
     # remove useless columns and turn into numpy arrays
     train_set = train_set.drop(["RecordID", "Time"], axis=1)
