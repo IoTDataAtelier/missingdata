@@ -83,34 +83,38 @@ def preprocess_physionet2012(
         y = pd.concat([data["outcomes-a"], data["outcomes-b"], data["outcomes-c"]])
         y = y.loc[unique_ids]
 
-    if (
-         features is None
-    ):  # if features are not specified, we use all features except the static features, e.g. age
-         X = X.drop(data["static_features"], axis=1)
-    else:  # if features are specified by users, only use the specified features
-         # check if the given features are valid
-         features_set = set(features)
-         if not all_features.issuperset(features_set):
-             intersection_feats = all_features.intersection(features_set)
-             difference = features_set.difference(intersection_feats)
-             raise ValueError(
-                 f"Given features contain invalid features that not in the dataset: {difference}"
-             )
-         # check if the given features contain necessary features for preprocessing
-         if "RecordID" not in features:
-             features.append("RecordID")
-         if "ICUType" not in features:
-             features.append("ICUType")
-         if "Time" not in features:
-             features.append("Time")
-         # select the specified features finally
-         X = X[features]
+    def drop_static_features(X):
+        if (
+            features is None
+        ):  # if features are not specified, we use all features except the static features, e.g. age
+            X = X.drop(data["static_features"], axis=1)
+        else:  # if features are specified by users, only use the specified features
+            # check if the given features are valid
+            features_set = set(features)
+            if not all_features.issuperset(features_set):
+                intersection_feats = all_features.intersection(features_set)
+                difference = features_set.difference(intersection_feats)
+                raise ValueError(
+                    f"Given features contain invalid features that not in the dataset: {difference}"
+                )
+            # check if the given features contain necessary features for preprocessing
+            if "RecordID" not in features:
+                features.append("RecordID")
+            if "ICUType" not in features:
+                features.append("ICUType")
+            if "Time" not in features:
+                features.append("Time")
+            # select the specified features finally
+            X = X[features]
 
+        X = X.drop(["level_1", "ICUType"], axis=1)
+
+        return X
+    
     X = X.groupby("RecordID").apply(apply_func)
     X = X.drop("RecordID", axis=1)
     X = X.reset_index()
     ICUType = X[["RecordID", "ICUType"]].set_index("RecordID").dropna()
-    X = X.drop(["level_1", "ICUType"], axis=1)
 
     # PhysioNet2012 is an imbalanced dataset, hence, we separate positive and negative samples here for later splitting
     # This is to ensure positive and negative ratios are similar in train/val/test sets
@@ -251,7 +255,26 @@ def preprocess_physionet2012(
     classificacao_obesidade_3_ids = classificacao_obesidade_3_ids["RecordID"]
     classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
 
-
+    train_set = drop_static_features(train_set)
+    val_set = drop_static_features(val_set)
+    test_set = drop_static_features(test_set)
+    female_gender_test = drop_static_features(female_gender_test)
+    male_gender_test = drop_static_features(male_gender_test)
+    undefined_gender_test = drop_static_features(undefined_gender_test)
+    more_than_or_equal_to_65_test = drop_static_features(more_than_or_equal_to_65_test)
+    less_than_65_test = drop_static_features(less_than_65_test)
+    ICUType_1_test = drop_static_features(ICUType_1_test)
+    ICUType_2_test = drop_static_features(ICUType_2_test)
+    ICUType_3_test = drop_static_features(ICUType_3_test)
+    ICUType_4_test = drop_static_features(ICUType_4_test)
+    classificacao_undefined_test = drop_static_features(classificacao_undefined_test)
+    classificacao_baixo_peso_test = drop_static_features(classificacao_baixo_peso_test)
+    classificacao_normal_peso_test = drop_static_features(classificacao_normal_peso_test)
+    classificacao_sobrepeso_test = drop_static_features(classificacao_sobrepeso_test)
+    classificacao_obesidade_1_test = drop_static_features(classificacao_obesidade_1_test)
+    classificacao_obesidade_2_test = drop_static_features(classificacao_obesidade_2_test)
+    classificacao_obesidade_3_test = drop_static_features(classificacao_obesidade_3_test)
+    
     # if (
     #      features is None
     # ):  # if features are not specified, we use all features except the static features, e.g. age
