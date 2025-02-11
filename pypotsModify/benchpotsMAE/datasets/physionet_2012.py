@@ -11,6 +11,7 @@ import pandas as pd
 import tsdb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 
 from ..utils.logging import logger, print_final_dataset_info
 from ..utils.missingness import create_missingness
@@ -19,6 +20,7 @@ from ..utils.missingness import create_missingness
 def preprocess_physionet2012(
     subset,
     rate,
+    normalization,
     pattern: str = "point",
     features: list = None,
     **kwargs,
@@ -343,27 +345,51 @@ def preprocess_physionet2012(
         classificacao_obesidade_3_test.to_numpy()
     )
 
-    # normalization
-    scaler = StandardScaler()
-    train_X = scaler.fit_transform(train_X)
-    val_X = scaler.transform(val_X)
-    test_X = scaler.transform(test_X)
-    female_gender_test_X = scaler.transform(female_gender_test_X)
-    male_gender_test_X = scaler.transform(male_gender_test_X)
-    undefined_gender_test_X = scaler.transform(undefined_gender_test_X)
-    more_than_or_equal_to_65_test_X = scaler.transform(more_than_or_equal_to_65_test_X) 
-    less_than_65_test_X = scaler.transform(less_than_65_test_X)
-    ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
-    ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
-    ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
-    ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
-    classificacao_undefined_test_X = scaler.transform(classificacao_undefined_test_X)
-    classificacao_baixo_peso_test_X = scaler.transform(classificacao_baixo_peso_test_X)
-    classificacao_normal_peso_test_X = scaler.transform(classificacao_normal_peso_test_X)
-    classificacao_sobrepeso_test_X = scaler.transform(classificacao_sobrepeso_test_X)
-    classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
-    classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
-    classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
+    # normalization - StandardScale/MinMaxScaler
+
+    if(normalization == 1):
+        scaler = StandardScaler()
+        train_X = scaler.fit_transform(train_X)
+        val_X = scaler.transform(val_X)
+        test_X = scaler.transform(test_X)
+        female_gender_test_X = scaler.transform(female_gender_test_X)
+        male_gender_test_X = scaler.transform(male_gender_test_X)
+        undefined_gender_test_X = scaler.transform(undefined_gender_test_X)
+        more_than_or_equal_to_65_test_X = scaler.transform(more_than_or_equal_to_65_test_X) 
+        less_than_65_test_X = scaler.transform(less_than_65_test_X)
+        ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
+        ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
+        ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
+        ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
+        classificacao_undefined_test_X = scaler.transform(classificacao_undefined_test_X)
+        classificacao_baixo_peso_test_X = scaler.transform(classificacao_baixo_peso_test_X)
+        classificacao_normal_peso_test_X = scaler.transform(classificacao_normal_peso_test_X)
+        classificacao_sobrepeso_test_X = scaler.transform(classificacao_sobrepeso_test_X)
+        classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
+        classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
+        classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
+    
+    elif(normalization == 2):
+        scaler = MinMaxScaler()
+        train_X = scaler.fit_transform(train_X)
+        val_X = scaler.transform(val_X)
+        test_X = scaler.transform(test_X)
+        female_gender_test_X = scaler.transform(female_gender_test_X)
+        male_gender_test_X = scaler.transform(male_gender_test_X)
+        undefined_gender_test_X = scaler.transform(undefined_gender_test_X)
+        more_than_or_equal_to_65_test_X = scaler.transform(more_than_or_equal_to_65_test_X) 
+        less_than_65_test_X = scaler.transform(less_than_65_test_X)
+        ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
+        ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
+        ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
+        ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
+        classificacao_undefined_test_X = scaler.transform(classificacao_undefined_test_X)
+        classificacao_baixo_peso_test_X = scaler.transform(classificacao_baixo_peso_test_X)
+        classificacao_normal_peso_test_X = scaler.transform(classificacao_normal_peso_test_X)
+        classificacao_sobrepeso_test_X = scaler.transform(classificacao_sobrepeso_test_X)
+        classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
+        classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
+        classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
 
     # reshape into time series samples
     train_X = train_X.reshape(len(train_set_ids), 48, -1)
