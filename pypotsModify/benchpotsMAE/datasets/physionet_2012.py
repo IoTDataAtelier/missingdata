@@ -368,6 +368,7 @@ def preprocess_physionet2012(
         classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
         classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
         classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
+        
     
     elif(normalization == 2):
         scaler = MinMaxScaler(feature_range=(0,1), clip=True)
@@ -412,6 +413,8 @@ def preprocess_physionet2012(
     classificacao_obesidade_2_test_X = classificacao_obesidade_2_test_X.reshape(len(classificacao_obesidade_2_ids), 48, -1)
     classificacao_obesidade_3_test_X = classificacao_obesidade_3_test_X.reshape(len(classificacao_obesidade_3_ids), 48, -1)
 
+    
+    
     # fetch labels for train/val/test sets
     train_y = y[y.index.isin(train_set_ids)].sort_index()
     val_y = y[y.index.isin(val_set_ids)].sort_index()
@@ -563,7 +566,9 @@ def preprocess_physionet2012(
         "test_ICUType_classificacao_obesidade_2": test_ICUType_classificacao_obesidade_2.flatten(),
         "classificacao_obesidade_3_test_X": classificacao_obesidade_3_test_X,
         "classificacao_obesidade_3_test_y": classificacao_obesidade_3_test_y.flatten(),
-        "test_ICUType_classificacao_obesidade_3": test_ICUType_classificacao_obesidade_3.flatten()
+        "test_ICUType_classificacao_obesidade_3": test_ICUType_classificacao_obesidade_3.flatten(),
+        #normalization
+        "scaler":scaler
     }
 
     if rate > 0:
