@@ -370,7 +370,7 @@ def preprocess_physionet2012(
         classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
     
     elif(normalization == 2):
-        scaler = MinMaxScaler()
+        scaler = MinMaxScaler(feature_range=(0,1), clip=True)
         train_X = scaler.fit_transform(train_X)
         val_X = scaler.transform(val_X)
         test_X = scaler.transform(test_X)
