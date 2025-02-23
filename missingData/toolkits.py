@@ -1,7 +1,7 @@
 import numpy as np
 class toolkits:
 
-    def separaring_dataset(dataset):
+    def separating_dataset(dataset):
 
         dataset_for_training = {
             "X": dataset['train_X'],
