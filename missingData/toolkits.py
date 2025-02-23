@@ -54,6 +54,31 @@ class toolkits:
 
         return dataset_for_training, dataset_for_validating, dataset_for_testing_ori, dataset_for_testing
     
+    #Reshape to variable
+    def pre_reshape(dataset):
+        for i in range(len(dataset)):
+            dataset[i] = dataset[i].reshape(len(dataset[i])*48, 37)
+        
+        return dataset
+        
+    
+    def reshape_variable(dataset):
+        listaMed = []
+        listaAux = []
+        dataset_variable = []
+
+        for i in range(len(dataset)):
+            for j in range(37):
+                for k in range(len(dataset[i])):
+                    listaAux.append(dataset[i][k][j])
+                listaMed.append(listaAux)
+                listaAux = []
+            dataset_variable.append(listaMed)
+            listaMed = []
+
+        return dataset_variable
+
+    #Indicating mask
     def indicating_mask(dataset_for_testing_ori, dataset_for_testing):
         test_X_indicating_mask = []
         test_X_ori = []
@@ -63,13 +88,24 @@ class toolkits:
 
         return test_X_indicating_mask, test_X_ori
 
-    def indicating_mask_variable(dataset_for_testing_ori, dataset_for_testing):
+    def indicating_mask_variable(dataset_for_testing_ori, dataset_for_testing, original, scaler):
         test_X_indicating_mask_variable = []
         test_X_ori_variable = []
         test_X_indicating_mask, test_X_ori = toolkits.indicating_mask(dataset_for_testing_ori, dataset_for_testing)
-        
-        for i in range(len(test_X_indicating_mask)):
-            test_X_indicating_mask_variable.append(test_X_indicating_mask[i].reshape(37, len(test_X_indicating_mask[i]) * 48))
-            test_X_ori_variable.append(test_X_ori[i].reshape(37, len(test_X_ori[i]) * 48))
+
+        if(original == True):
+            for i in range(len(test_X_ori)):
+                test_X_ori_variable.append(test_X_ori[i].reshape(len(test_X_ori[i])* 48, 37))
+                test_X_ori_variable[i] = scaler.inverse_transform(test_X_ori_variable[i])
+                test_X_ori_variable[i] = np.nan_to_num(test_X_ori_variable[i])
+            
+            test_X_indicating_mask_variable = toolkits.reshape_variable(test_X_indicating_mask)
+            test_X_ori_variable = toolkits.reshape_variable(test_X_ori_variable)
+
+        elif(original == False):
+            test_X_indicating_mask_variable = toolkits.pre_reshape(test_X_indicating_mask)
+            test_X_ori_variable = toolkits.pre_reshape(test_X_ori)
+            test_X_indicating_mask_variable = toolkits.reshape_variable(test_X_indicating_mask_variable)
+            test_X_ori_variable = toolkits.reshape_variable(test_X_ori_variable)
 
         return test_X_indicating_mask_variable, test_X_ori_variable
