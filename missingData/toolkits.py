@@ -73,6 +73,7 @@ class toolkits:
                     listaAux.append(dataset[i][k][j])
                 listaMed.append(listaAux)
                 listaAux = []
+            listaMed = np.array(listaMed)
             dataset_variable.append(listaMed)
             listaMed = []
 
@@ -109,3 +110,11 @@ class toolkits:
             test_X_ori_variable = toolkits.reshape_variable(test_X_ori_variable)
 
         return test_X_indicating_mask_variable, test_X_ori_variable
+    
+
+    def model_imputation(dataset_for_testing, model):
+        saits_imputation = []
+        for value in  dataset_for_testing.values():
+            _dict = {'X':value}
+            saits_results = model.predict(_dict)
+            saits_imputation.append(saits_results["imputation"])
