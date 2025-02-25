@@ -1,5 +1,6 @@
 import numpy as np
 import pypots
+import pandas as pd
 from pypots.utils.metrics import calc_mae
 
 class toolkits:
@@ -134,4 +135,25 @@ class toolkits:
         testing_mae_model_append_variables = [] 
 
         return testing_mae_model_append_subgroups
+    
+    #Mae per model
+    def show_mae(testing_mae_model, subgroups, variables):
+
+        for i in range(len(subgroups)): 
+                print(subgroups[i]) 
+                print("-------------")
+                for j in range(len(variables)):
+                    print(variables[j], ":" ,testing_mae_model[i][j])
+
+    
+    #Create table per model
+    def create_table(testing_mae_model, subgroups, variables):
+        
+        df_model_mae = pd.DataFrame(variables)
+
+        for i in range(len(subgroups)):
+                df_model_mae[subgroups[i]] = testing_mae_model[i]
+
+
+        return df_model_mae
         
