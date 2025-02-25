@@ -1,4 +1,7 @@
 import numpy as np
+import pypots
+from pypots.utils.metrics import calc_mae
+
 class toolkits:
 
     def separating_dataset(dataset):
@@ -113,8 +116,22 @@ class toolkits:
     
 
     def model_imputation(dataset_for_testing, model):
-        saits_imputation = []
+        model_imputation = []
         for value in  dataset_for_testing.values():
             _dict = {'X':value}
-            saits_results = model.predict(_dict)
-            saits_imputation.append(saits_results["imputation"])
+            model_results = model.predict(_dict)
+            model_imputation.append(model_results["imputation"])
+        
+        return model_imputation
+    
+    def calculate_mae(model_imputation, test_X_ori, indicating_mask):
+        testing_mae_model_append_subgroups = []
+        testing_mae_model_append_variables = []
+        for i in range(len(model_imputation)):
+            for j in range(len(model_imputation[i])):
+                testing_mae_model_append_variables.append(calc_mae(model_imputation[i][j], test_X_ori[i][j], indicating_mask[i][j]))
+        testing_mae_model_append_subgroups.append(testing_mae_model_append_variables)
+        testing_mae_model_append_variables = [] 
+
+        return testing_mae_model_append_subgroups
+        
