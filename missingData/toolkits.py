@@ -156,4 +156,27 @@ class toolkits:
 
 
         return df_model_mae
+    
+    def min_value_in_subgroup(model, subgroups, variables):
+        for i in range(len(subgroups)):
+            value = model[subgroups[i]].min()
+            print(subgroups[i])
+            for j in range(len(variables)):
+                if(model[subgroups[i]][j] == value):
+                    var = variables[j]
+            print(var)
+            print(value)        
+            print("--------------------")
+
+    def max_value_in_subgroup(model, subgroups, variables):
+        for i in range(len(subgroups)):
+            value = model[subgroups[i]].min()
+            print(subgroups[i])
+            for j in range(len(variables)):
+                if(model[subgroups[i]][j] == value):
+                    var = variables[j]
+            print(var)
+            print(value)        
+            print("--------------------")        
+        
         
