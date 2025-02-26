@@ -131,8 +131,8 @@ class toolkits:
         for i in range(len(model_imputation)):
             for j in range(len(model_imputation[i])):
                 testing_mae_model_append_variables.append(calc_mae(model_imputation[i][j], test_X_ori[i][j], indicating_mask[i][j]))
-        testing_mae_model_append_subgroups.append(testing_mae_model_append_variables)
-        testing_mae_model_append_variables = [] 
+            testing_mae_model_append_subgroups.append(testing_mae_model_append_variables)
+            testing_mae_model_append_variables = [] 
 
         return testing_mae_model_append_subgroups
     
