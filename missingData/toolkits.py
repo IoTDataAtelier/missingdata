@@ -136,6 +136,16 @@ class toolkits:
 
         return testing_mae_model_append_subgroups
     
+    def denormalization(dataset, scaler):
+        dataset_denormalized = []
+        for i in range(len(dataset)):
+            dataset_denormalized.append(dataset[i].reshape(len(dataset[i][0]), 37))
+            dataset_denormalized[i] = scaler.inverse_transform(dataset_denormalized[i])
+            dataset_denormalized[i] = np.nan_to_num(dataset_denormalized[i])
+        
+        return dataset_denormalized
+
+    
     #Mae per model
     def show_mae(testing_mae_model, subgroups, variables):
 
