@@ -90,4 +90,65 @@ class toolkits:
 
         return dataset_variable
     
+    def model_imputation(dataset_for_testing, model):
+        model_imputation = []
+        for value in  dataset_for_testing.values():
+            _dict = {'X':value}
+            model_results = model.predict(_dict)
+            model_imputation.append(model_results["imputation"])
+        return model_imputation
     
+    def calculate_mae(model_imputation, test_X_ori, indicating_mask):
+        testing_mae_model_append_subgroups = []
+        testing_mae_model_append_variables = []
+        for i in range(len(model_imputation)):
+            for j in range(len(model_imputation[i])):
+                testing_mae_model_append_variables.append(calc_mae(model_imputation[i][j], test_X_ori[i][j], indicating_mask[i][j]))
+            testing_mae_model_append_subgroups.append(testing_mae_model_append_variables)
+            testing_mae_model_append_variables = []
+        
+        return testing_mae_model_append_subgroups
+    
+    #Mae per model
+    def show_mae(testing_mae_model, subgroups, variables):
+
+        for i in range(len(subgroups)): 
+                print(subgroups[i]) 
+                print("-------------")
+                for j in range(len(variables)):
+                    print(variables[j], ":" ,testing_mae_model[i][j])
+
+
+    #Create table per model
+    def create_table(testing_mae_model, subgroups, variables):
+
+        df_model_mae = pd.DataFrame(variables)
+
+        for i in range(len(subgroups)):
+                df_model_mae[subgroups[i]] = testing_mae_model[i]
+
+
+        return df_model_mae
+    
+    def min_value_in_subgroup(model, subgroups, variables):
+        for i in range(len(subgroups)):
+            value = model[subgroups[i]].min()
+            print(subgroups[i])
+            for j in range(len(variables)):
+                if(model[subgroups[i]][j] == value):
+                    var = variables[j]
+            print(var)
+            print(value)        
+            print("--------------------")
+
+    def max_value_in_subgroup(model, subgroups, variables):
+        for i in range(len(subgroups)):
+            value = model[subgroups[i]].min()
+            print(subgroups[i])
+            for j in range(len(variables)):
+                if(model[subgroups[i]][j] == value):
+                    var = variables[j]
+            print(var)
+            print(value)        
+            print("--------------------")        
+        
