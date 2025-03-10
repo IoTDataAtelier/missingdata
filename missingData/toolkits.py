@@ -82,7 +82,7 @@ class toolkits:
             for j in range(37):
                 for k in range(len(dataset[i])):
                     listaAux.append(dataset[i][k][j])
-                listaMed.append(listaAux)
+                listaMed.append(listaAux) 
                 listaAux = []
             listaMed = np.array(listaMed)
             dataset_variable.append(listaMed)
@@ -143,7 +143,7 @@ class toolkits:
 
     def max_value_in_subgroup(model, subgroups, variables):
         for i in range(len(subgroups)):
-            value = model[subgroups[i]].min()
+            value = model[subgroups[i]].max()
             print(subgroups[i])
             for j in range(len(variables)):
                 if(model[subgroups[i]][j] == value):
