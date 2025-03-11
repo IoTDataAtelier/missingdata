@@ -150,5 +150,11 @@ class toolkits:
                     var = variables[j]
             print(var)
             print(value)        
-            print("--------------------")        
+            print("--------------------")    
+
+    def desnormalization(dataset, scaler):
+        for i in range(len(dataset)):
+            dataset[i] = scaler.inverse_transform(dataset[i])
+
+        return dataset    
         
