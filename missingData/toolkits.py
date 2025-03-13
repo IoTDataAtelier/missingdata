@@ -62,10 +62,10 @@ class toolkits:
     def components_mae(dataset_for_testing_ori_standard, dataset_for_testing_standard):
         test_X_indicating_mask = []
         test_X_ori = []
-        for i, j in zip(dataset_for_testing_ori_standard.values(), dataset_for_testing_standard.values()):
-            test_X_indicating_mask.append(np.isnan(i) ^ np.isnan(j))
-            test_X_ori.append(np.nan_to_num(i))# metric functions do not accpet input with NaNs, hence fill NaNs with 0
-        
+        for i in range(len(dataset_for_testing_standard)):
+            test_X_indicating_mask.append(np.isnan(dataset_for_testing_ori_standard[i]) ^ np.isnan(dataset_for_testing_standard[i]))
+            test_X_ori.append(np.nan_to_num(dataset_for_testing_ori_standard[i]))# metric functions do not accpet input with NaNs, hence fill NaNs with 0
+            
         return test_X_indicating_mask, test_X_ori
     
     def pre_reshape(dataset):
@@ -153,8 +153,16 @@ class toolkits:
             print("--------------------")    
 
     def desnormalization(dataset, scaler):
+        dataset_desnormalized = []
         for i in range(len(dataset)):
-            dataset[i] = scaler.inverse_transform(dataset[i])
+            dataset_desnormalized.append(scaler.inverse_transform(dataset[i]))
 
-        return dataset    
+        return dataset_desnormalized
+
+    def dict_to_list(dataset):
+        dataset_list = []
+        for i in dataset.values():
+            dataset_list.append(i) 
+        
+        return dataset_list
         
