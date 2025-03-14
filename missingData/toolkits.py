@@ -165,4 +165,14 @@ class toolkits:
             dataset_list.append(i) 
         
         return dataset_list
+    
+
+    def table_latex(dataframe):
+
+        latex_code = dataframe.to_latex(index=False)
+
+        with open("tabela.tex", "w") as f:
+            f.write(latex_code)
+
+        print(latex_code)
         
