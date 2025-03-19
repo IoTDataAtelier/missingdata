@@ -15,6 +15,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 from ..utils.logging import logger, print_final_dataset_info
 from ..utils.missingness import create_missingness
+from missingData.toolkits import toolkits
 
 
 def preprocess_physionet2012(
@@ -117,6 +118,11 @@ def preprocess_physionet2012(
     X = X.groupby("RecordID").apply(apply_func)
     X = X.drop("RecordID", axis=1)
     X = X.reset_index()
+
+    if custom_test != None:
+        df_custom_train_ids, df_custom_test_ids = toolkits.split_subgroup(X,custom_test)
+        df_custom_test_ids, df_custom_val_ids = train_test_split(df_custom_test_ids, test_size=0.4)
+
     ICUType = X[["RecordID", "ICUType"]].set_index("RecordID").dropna()
 
     # PhysioNet2012 is an imbalanced dataset, hence, we separate positive and negative samples here for later splitting
@@ -128,6 +134,7 @@ def preprocess_physionet2012(
     assert len(positive_sample_IDs) + len(negative_sample_IDs) == len(all_recordID)
 
     # split the dataset into the train, val, and test sets
+
     train_positive_set_ids, test_positive_set_ids = train_test_split(
         positive_sample_IDs, test_size=0.2
     )
