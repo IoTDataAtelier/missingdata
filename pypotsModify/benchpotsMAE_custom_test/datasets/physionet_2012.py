@@ -21,6 +21,7 @@ def preprocess_physionet2012(
     subset,
     rate,
     normalization,
+    custom_test = None,
     pattern: str = "point",
     features: list = None,
     **kwargs,
