@@ -175,4 +175,7 @@ class toolkits:
             f.write(latex_code)
 
         print(latex_code)
+
+    def split_subgroup(subgroup):
+        pass
         
