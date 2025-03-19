@@ -176,6 +176,23 @@ class toolkits:
 
         print(latex_code)
 
-    def split_subgroup(subgroup):
-        pass
+    def split_subgroup(dataframe, subgroup):
+        
+        if subgroup == "male" or subgroup == "female" or subgroup == "undefined gender":
+
+            if subgroup == "female":
+                param = 0
+            elif subgroup == "male": 
+                param = 1
+            else:
+                param = -1
+            
+            dataframe_ids_test = dataframe[dataframe["Gender"] == param]
+            dataframe_ids_test  = dataframe_ids_test["RecordID"]
+            dataframe_ids_train = dataframe[~dataframe["RecordID"].isin(dataframe_ids_test)]
+            dataframe_ids_train = dataframe_ids_train["RecordID"]
+        
+        return dataframe_ids_train.to_list(), dataframe_ids_test.to_list()
+
+            
         
