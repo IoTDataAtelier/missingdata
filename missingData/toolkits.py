@@ -188,11 +188,11 @@ class toolkits:
                 param = -1
             
             dataframe_ids_test = dataframe[dataframe["Gender"] == param]
-            dataframe_ids_test  = dataframe_ids_test["RecordID"]
+            dataframe_ids_test  = list(set(dataframe_ids_test["RecordID"].to_list()))
             dataframe_ids_train = dataframe[~dataframe["RecordID"].isin(dataframe_ids_test)]
-            dataframe_ids_train = dataframe_ids_train["RecordID"]
+            dataframe_ids_train = list(set(dataframe_ids_train["RecordID"].to_list()))
         
-        return dataframe_ids_train.to_list(), dataframe_ids_test.to_list()
+        return dataframe_ids_train, dataframe_ids_test
 
             
         
