@@ -1,5 +1,6 @@
 import numpy as np
 import pypots
+import random
 import pandas as pd
 from MAEModify.error import calc_mae
 
@@ -199,6 +200,24 @@ class toolkits:
             dataframe_ids_train = list(set(dataframe_ids_train["RecordID"].to_list()))
         
         return dataframe_ids_train, dataframe_ids_test
+    
+    def confidence_interval(ae, mask, n_resamples):
+        distrinbutin_bootstrap = []
+        resampling_ae = []
+        resampling_mask = []
+        for i in range(n_resamples):
+            for j in range(len(ae)):
+                 index = random.randint(0, len(ae)-1)
+                 resampling_ae.append(ae[index])
+                 resampling_mask.append(mask[index])
+
+            mae = sum(resampling_ae * resampling_mask)/(sum(mask)+1e-12)
+            distrinbutin_bootstrap.append(mae)
+            resampling_ae = []
+            resampling_mask = []
+            
+        return distrinbutin_bootstrap
+    
 
             
         
