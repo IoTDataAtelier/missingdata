@@ -1,7 +1,7 @@
 import numpy as np
 import pypots
 import pandas as pd
-from pypots.utils.metrics import calc_mae
+from MAEModify.error import calc_mae
 
 class toolkits:
 
@@ -101,13 +101,19 @@ class toolkits:
     def calculate_mae(model_imputation, test_X_ori, indicating_mask):
         testing_mae_model_append_subgroups = []
         testing_mae_model_append_variables = []
+        testing_ae_model_append_subgroups = []
+        testing_ae_model_append_variables = []
         for i in range(len(model_imputation)):
             for j in range(len(model_imputation[i])):
-                testing_mae_model_append_variables.append(calc_mae(model_imputation[i][j], test_X_ori[i][j], indicating_mask[i][j]))
+                aux_mae, aux_ae = calc_mae(model_imputation[i][j], test_X_ori[i][j], indicating_mask[i][j])
+                testing_mae_model_append_variables.append(aux_mae)
+                testing_ae_model_append_variables.append(aux_ae)
             testing_mae_model_append_subgroups.append(testing_mae_model_append_variables)
+            testing_ae_model_append_subgroups.append(testing_ae_model_append_variables)
             testing_mae_model_append_variables = []
+            testing_ae_model_append_variables = []
         
-        return testing_mae_model_append_subgroups
+        return testing_mae_model_append_subgroups, testing_ae_model_append_subgroups
     
     #Mae per model
     def show_mae(testing_mae_model, subgroups, variables):
