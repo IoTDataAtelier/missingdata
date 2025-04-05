@@ -202,8 +202,23 @@ class toolkits:
         return dataframe_ids_train, dataframe_ids_test
     
     def confidence_interval(ae, mask, subgrupo, variavel, n_resamples):
-        resampling_ae = np.zeros(len(ae))
-        teste = "teste"
+        resampling_ae = np.zeros(len(ae[subgrupo][variavel]))
+        resampling_mask = np.zeros(len(ae[subgrupo][variavel]))
+        distribution_bootstrap = []
+
+        for i in range(n_resamples):
+            for j in range(len(resampling_ae)):
+                index = random.randint(0, len(resampling_ae) - 1)
+                resampling_ae[j] = ae[subgrupo][variavel][index]
+                resampling_mask[j] = mask[subgrupo][variavel][index]
+
+            mae = sum(resampling_ae * resampling_mask)/(sum(resampling_mask)+1e-12)
+            distribution_bootstrap.append(mae)
+            resampling_ae = np.zeros(len(ae[subgrupo][variavel]))
+            resampling_mask = np.zeros(len(ae[subgrupo][variavel]))
+        
+        return distribution_bootstrap
+
         
 
             
