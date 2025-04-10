@@ -201,7 +201,7 @@ class toolkits:
         
         return dataframe_ids_train, dataframe_ids_test
     
-    def confidence_interval(ae, mask, subgrupo, variavel, n_resamples):
+    def bootstrap(ae, mask, subgrupo, variavel, n_resamples):
         resampling_ae = np.zeros(len(ae[subgrupo][variavel]))
         resampling_mask = np.zeros(len(ae[subgrupo][variavel]))
         distribution_bootstrap = []
