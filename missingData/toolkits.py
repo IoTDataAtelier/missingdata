@@ -4,6 +4,7 @@ import random
 import pandas as pd
 import math
 from MAEModify.error import calc_mae
+import scipy.stats as st
 
 class toolkits:
 
@@ -234,6 +235,28 @@ class toolkits:
 
         return diff
     
+    def calc_mean_and_standard_deviation(bootstrap_results_for_the_model):
+        means_bootstraps = [] 
+        standards_deviations = []
+        for i in range(len(bootstrap_results_for_the_model)):
+            means_bootstraps.append(np.mean(bootstrap_results_for_the_model[i]))
+            standards_deviations.append(np.std(bootstrap_results_for_the_model[i]))
+        return means_bootstraps, standards_deviations
+    
+    def calc_lower_and_upper_bound(bootstrap_results_for_the_model,means_bootstraps, standards_deviations):
+        lower_bounds = []
+        upper_bounds = []
+        for i in range(len(bootstrap_results_for_the_model)):
+            lower_bounds.append(means_bootstraps[i] - st.norm.ppf(1-0.05/2) * standards_deviations[i])
+            upper_bounds.append(means_bootstraps[i] + st.norm.ppf(1-0.05/2) * standards_deviations[i])
+        return lower_bounds, upper_bounds
+    
+    def calc_mean_values_ci(lower_bounds, upper_bounds):
+        mean_values_ci = []
+        for i in range(len(lower_bounds)):
+            mean_values_ci.append((lower_bounds[i] + upper_bounds[i]) / 2)
+        return mean_values_ci  
+
 
         
 
