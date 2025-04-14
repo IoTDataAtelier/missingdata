@@ -2,6 +2,7 @@ import numpy as np
 import pypots
 import random
 import pandas as pd
+import math
 from MAEModify.error import calc_mae
 
 class toolkits:
@@ -218,6 +219,21 @@ class toolkits:
             resampling_mask = np.zeros(len(ae[subgrupo][variavel]))
         
         return distribution_bootstrap
+
+    def diff_mae_top_5(mae_model, subgrupo1, subgrupo2, variables):
+        
+        diff = []
+
+        for i in range(len(mae_model[0])):
+            diff.append((variables[i], math.fabs(mae_model[subgrupo1][i] - mae_model[subgrupo2][i])))
+            
+        
+        diff = sorted(diff, key=lambda x: x[1], reverse=True)
+        diff = diff[0:5]
+        
+
+        return diff
+    
 
         
 
