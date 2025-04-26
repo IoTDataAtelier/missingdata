@@ -246,7 +246,7 @@ class toolkits:
     def calc_lower_and_upper_bound(bootstrap_results_for_the_model,means_bootstraps, standards_deviations):
         lower_bounds = []
         upper_bounds = []
-        for i in range(len(bootstrap_results_for_the_model)):
+        for i in range(len(means_bootstraps)):
             lower_bounds.append(means_bootstraps[i] - st.norm.ppf(1-0.05/2) * standards_deviations[i])
             upper_bounds.append(means_bootstraps[i] + st.norm.ppf(1-0.05/2) * standards_deviations[i])
         return lower_bounds, upper_bounds
