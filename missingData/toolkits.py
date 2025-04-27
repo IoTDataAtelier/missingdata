@@ -251,6 +251,18 @@ class toolkits:
             upper_bounds.append(means_bootstraps[i] + st.norm.ppf(1-0.05/2) * standards_deviations[i])
         return lower_bounds, upper_bounds
     
+    def calc_lower_and_upper_bound_percentile(bootstrap_results_for_the_model):
+
+        lower_bounds = []
+        upper_bounds = []
+
+        for i in range(len(bootstrap_results_for_the_model)):
+            lower_bounds.append(np.percentile(bootstrap_results_for_the_model[i], 2.5))
+            upper_bounds.append(np.percentile(bootstrap_results_for_the_model[i], 97.5))
+
+        return lower_bounds, upper_bounds
+
+    
     def calc_mean_values_ci(lower_bounds, upper_bounds):
         mean_values_ci = []
         for i in range(len(lower_bounds)):
