@@ -220,6 +220,20 @@ class toolkits:
             resampling_mask = np.zeros(len(ae[subgrupo][variavel]))
         
         return distribution_bootstrap
+    
+    def bootstrap_v2(ae, mask, subgrupo, variavel, n_resamples):
+        distribution_bootstrap = []
+
+        for i in range(n_resamples):
+            indices = np.random.randint(0, len(ae[subgrupo][variavel]) - 1, size = len(ae[subgrupo][variavel]))
+            resampling_ae = ae[subgrupo][variavel][indices]
+            resampling_mask = mask[subgrupo][variavel][indices]
+            mae = sum(resampling_ae * resampling_mask)/(sum(resampling_mask)+1e-12)
+            distribution_bootstrap.append(mae)
+        
+        return distribution_bootstrap
+    
+        
 
     def diff_mae_top_5(mae_model, subgrupo1, subgrupo2, variables):
         
