@@ -180,25 +180,25 @@ def preprocess_physionet2012(
 
     #Divisão por ICUType
 
-    ICUType_1 = test_set[test_set['ICUType'] == 1.0]
-    ICUType_1 = ICUType_1[ICUType_1["Time"] == 0.0]
-    ICUType_1_ids = ICUType_1["RecordID"]
-    ICUType_1_test = test_set[test_set["RecordID"].isin(ICUType_1_ids)]
+    #ICUType_1 = test_set[test_set['ICUType'] == 1.0]
+    #ICUType_1 = ICUType_1[ICUType_1["Time"] == 0.0]
+    #ICUType_1_ids = ICUType_1["RecordID"]
+    #ICUType_1_test = test_set[test_set["RecordID"].isin(ICUType_1_ids)]
 
-    ICUType_2 = test_set[test_set['ICUType'] == 2.0]
-    ICUType_2 = ICUType_2[ICUType_2["Time"] == 0.0]
-    ICUType2_ids = ICUType_2["RecordID"]
-    ICUType_2_test = test_set[test_set["RecordID"].isin(ICUType2_ids)]
+    #ICUType_2 = test_set[test_set['ICUType'] == 2.0]
+    #ICUType_2 = ICUType_2[ICUType_2["Time"] == 0.0]
+    #ICUType2_ids = ICUType_2["RecordID"]
+    #ICUType_2_test = test_set[test_set["RecordID"].isin(ICUType2_ids)]
 
-    ICUType_3 = test_set[test_set['ICUType'] == 3.0]
-    ICUType_3 = ICUType_3[ICUType_3["Time"] == 0.0]
-    ICUType_3_ids = ICUType_3["RecordID"]
-    ICUType_3_test = test_set[test_set["RecordID"].isin(ICUType_3_ids)]
+    #ICUType_3 = test_set[test_set['ICUType'] == 3.0]
+    #ICUType_3 = ICUType_3[ICUType_3["Time"] == 0.0]
+    #ICUType_3_ids = ICUType_3["RecordID"]
+    #ICUType_3_test = test_set[test_set["RecordID"].isin(ICUType_3_ids)]
 
-    ICUType_4 = test_set[test_set['ICUType'] == 4.0]
-    ICUType_4 = ICUType_4[ICUType_4["Time"] == 0.0]
-    ICUType_4_ids = ICUType_4["RecordID"]
-    ICUType_4_test = test_set[test_set["RecordID"].isin(ICUType_4_ids)]
+    #ICUType_4 = test_set[test_set['ICUType'] == 4.0]
+    #ICUType_4 = ICUType_4[ICUType_4["Time"] == 0.0]
+    #ICUType_4_ids = ICUType_4["RecordID"]
+    #ICUType_4_test = test_set[test_set["RecordID"].isin(ICUType_4_ids)]
 
     #Divisão por IMC
 
@@ -209,12 +209,9 @@ def preprocess_physionet2012(
             return "Peso normal"
         elif BMI >= 25 and BMI <= 29.9:
             return "Sobrepeso"
-        elif BMI >= 30 and BMI <= 34.9:
-            return "Obesidade grau 1"
-        elif BMI >= 35 and BMI <= 39.9:
-            return "Obesidade grau 2"
-        elif BMI >= 40:
-            return "Obesidade grau 3"
+        elif BMI >= 30:
+            return "Obesity"
+   
         
     filtered_test = test_set[(test_set['Height'] != -1) & (test_set['Weight'] != -1) & (test_set['Height'].notna()) & (test_set['Weight'].notna())] 
 
@@ -245,17 +242,21 @@ def preprocess_physionet2012(
     classificacao_sobrepeso_ids = classificacao_sobrepeso_ids["RecordID"]
     classificacao_sobrepeso_test = test_set[test_set["RecordID"].isin(classificacao_sobrepeso_ids)]
 
-    classificacao_obesidade_1_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 1"]
-    classificacao_obesidade_1_ids = classificacao_obesidade_1_ids["RecordID"]
-    classificacao_obesidade_1_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_1_ids)]
+    classificacao_obesidade_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesity"]
+    classificacao_obesidade_ids = classificacao_obesidade_ids["RecordID"]
+    classificacao_obesidade_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_ids)]
 
-    classificacao_obesidade_2_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 2"]
-    classificacao_obesidade_2_ids = classificacao_obesidade_2_ids["RecordID"]
-    classificacao_obesidade_2_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_2_ids)]
+    #classificacao_obesidade_1_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 1"]
+   #classificacao_obesidade_1_ids = classificacao_obesidade_1_ids["RecordID"]
+    #classificacao_obesidade_1_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_1_ids)]
 
-    classificacao_obesidade_3_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 3"]
-    classificacao_obesidade_3_ids = classificacao_obesidade_3_ids["RecordID"]
-    classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
+    #classificacao_obesidade_2_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 2"]
+    #classificacao_obesidade_2_ids = classificacao_obesidade_2_ids["RecordID"]
+    #classificacao_obesidade_2_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_2_ids)]
+
+    #classificacao_obesidade_3_ids = bmi_data_test[bmi_data_test["Classificacao"] == "Obesidade grau 3"]
+    #classificacao_obesidade_3_ids = classificacao_obesidade_3_ids["RecordID"]
+    #classificacao_obesidade_3_test = test_set[test_set["RecordID"].isin(classificacao_obesidade_3_ids)]
 
     train_set = drop_static_features(train_set)
     val_set = drop_static_features(val_set)
@@ -265,17 +266,18 @@ def preprocess_physionet2012(
     undefined_gender_test = drop_static_features(undefined_gender_test)
     more_than_or_equal_to_65_test = drop_static_features(more_than_or_equal_to_65_test)
     less_than_65_test = drop_static_features(less_than_65_test)
-    ICUType_1_test = drop_static_features(ICUType_1_test)
-    ICUType_2_test = drop_static_features(ICUType_2_test)
-    ICUType_3_test = drop_static_features(ICUType_3_test)
-    ICUType_4_test = drop_static_features(ICUType_4_test)
+    #ICUType_1_test = drop_static_features(ICUType_1_test)
+    #ICUType_2_test = drop_static_features(ICUType_2_test)
+    #ICUType_3_test = drop_static_features(ICUType_3_test)
+    #ICUType_4_test = drop_static_features(ICUType_4_test)
     classificacao_undefined_test = drop_static_features(classificacao_undefined_test)
     classificacao_baixo_peso_test = drop_static_features(classificacao_baixo_peso_test)
     classificacao_normal_peso_test = drop_static_features(classificacao_normal_peso_test)
     classificacao_sobrepeso_test = drop_static_features(classificacao_sobrepeso_test)
-    classificacao_obesidade_1_test = drop_static_features(classificacao_obesidade_1_test)
-    classificacao_obesidade_2_test = drop_static_features(classificacao_obesidade_2_test)
-    classificacao_obesidade_3_test = drop_static_features(classificacao_obesidade_3_test)
+    classificacao_obesidade_test = drop_static_features(classificacao_obesidade_test)
+    #classificacao_obesidade_1_test = drop_static_features(classificacao_obesidade_1_test)
+    #classificacao_obesidade_2_test = drop_static_features(classificacao_obesidade_2_test)
+    #classificacao_obesidade_3_test = drop_static_features(classificacao_obesidade_3_test)
     
     # if (
     #      features is None
@@ -311,19 +313,20 @@ def preprocess_physionet2012(
     undefined_gender_test = undefined_gender_test.drop(["RecordID", "Time"], axis=1)
     more_than_or_equal_to_65_test = more_than_or_equal_to_65_test.drop(["RecordID", "Time"], axis=1)
     less_than_65_test = less_than_65_test.drop(["RecordID", "Time"], axis=1)
-    ICUType_1_test = ICUType_1_test.drop(["RecordID", "Time"], axis=1)
-    ICUType_2_test = ICUType_2_test.drop(["RecordID", "Time"], axis=1)
-    ICUType_3_test = ICUType_3_test.drop(["RecordID", "Time"], axis=1)
-    ICUType_4_test = ICUType_4_test.drop(["RecordID", "Time"], axis=1)
+    #ICUType_1_test = ICUType_1_test.drop(["RecordID", "Time"], axis=1)
+    #ICUType_2_test = ICUType_2_test.drop(["RecordID", "Time"], axis=1)
+    #ICUType_3_test = ICUType_3_test.drop(["RecordID", "Time"], axis=1)
+    #ICUType_4_test = ICUType_4_test.drop(["RecordID", "Time"], axis=1)
     classificacao_undefined_test = classificacao_undefined_test.drop(["RecordID", "Time"], axis=1)
     classificacao_baixo_peso_test = classificacao_baixo_peso_test.drop(["RecordID", "Time"], axis=1)
     classificacao_normal_peso_test = classificacao_normal_peso_test.drop(["RecordID", "Time"], axis=1)
     classificacao_sobrepeso_test = classificacao_sobrepeso_test.drop(["RecordID", "Time"], axis=1)
-    classificacao_obesidade_1_test = classificacao_obesidade_1_test.drop(["RecordID", "Time"], axis=1)
-    classificacao_obesidade_2_test = classificacao_obesidade_2_test.drop(["RecordID", "Time"], axis=1)
-    classificacao_obesidade_3_test = classificacao_obesidade_3_test.drop(["RecordID", "Time"], axis=1)
+    classificacao_obesidade_test = classificacao_obesidade_test.drop(["RecordID", "Time"], axis=1)
+    #classificacao_obesidade_1_test = classificacao_obesidade_1_test.drop(["RecordID", "Time"], axis=1)
+    #classificacao_obesidade_2_test = classificacao_obesidade_2_test.drop(["RecordID", "Time"], axis=1)
+    #classificacao_obesidade_3_test = classificacao_obesidade_3_test.drop(["RecordID", "Time"], axis=1)
 
-    train_X, val_X, test_X, female_gender_test_X, male_gender_test_X, undefined_gender_test_X, more_than_or_equal_to_65_test_X, less_than_65_test_X, ICUType_1_test_X, ICUType_2_test_X, ICUType_3_test_X, ICUType_4_test_X, classificacao_undefined_test_X, classificacao_baixo_peso_test_X, classificacao_normal_peso_test_X, classificacao_sobrepeso_test_X, classificacao_obesidade_1_test_X, classificacao_obesidade_2_test_X, classificacao_obesidade_3_test_X= (
+    train_X, val_X, test_X, female_gender_test_X, male_gender_test_X, undefined_gender_test_X, more_than_or_equal_to_65_test_X, less_than_65_test_X, classificacao_undefined_test_X, classificacao_baixo_peso_test_X, classificacao_normal_peso_test_X, classificacao_sobrepeso_test_X, classificacao_obesidade_test_X= (
         train_set.to_numpy(),
         val_set.to_numpy(),
         test_set.to_numpy(),
@@ -332,17 +335,17 @@ def preprocess_physionet2012(
         undefined_gender_test.to_numpy(),
         more_than_or_equal_to_65_test.to_numpy(),
         less_than_65_test.to_numpy(),
-        ICUType_1_test.to_numpy(),
-        ICUType_2_test.to_numpy(),
-        ICUType_3_test.to_numpy(),
-        ICUType_4_test.to_numpy(),
+        #ICUType_1_test.to_numpy(),
+        #ICUType_2_test.to_numpy(),
+        #ICUType_3_test.to_numpy(),
+        #ICUType_4_test.to_numpy(),
         classificacao_undefined_test.to_numpy(),
         classificacao_baixo_peso_test.to_numpy(),
         classificacao_normal_peso_test.to_numpy(),
         classificacao_sobrepeso_test.to_numpy(),
-        classificacao_obesidade_1_test.to_numpy(),
-        classificacao_obesidade_2_test.to_numpy(),
-        classificacao_obesidade_3_test.to_numpy()
+        classificacao_obesidade_test.to_numpy(),
+        #classificacao_obesidade_2_test.to_numpy(),
+        #classificacao_obesidade_3_test.to_numpy()
     )
 
     # normalization - StandardScale/MinMaxScaler
@@ -357,17 +360,17 @@ def preprocess_physionet2012(
         undefined_gender_test_X = scaler.transform(undefined_gender_test_X)
         more_than_or_equal_to_65_test_X = scaler.transform(more_than_or_equal_to_65_test_X) 
         less_than_65_test_X = scaler.transform(less_than_65_test_X)
-        ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
-        ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
-        ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
-        ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
+        #ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
+        #ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
+        #ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
+        #ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
         classificacao_undefined_test_X = scaler.transform(classificacao_undefined_test_X)
         classificacao_baixo_peso_test_X = scaler.transform(classificacao_baixo_peso_test_X)
         classificacao_normal_peso_test_X = scaler.transform(classificacao_normal_peso_test_X)
         classificacao_sobrepeso_test_X = scaler.transform(classificacao_sobrepeso_test_X)
-        classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
-        classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
-        classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
+        classificacao_obesidade_test_X = scaler.transform(classificacao_obesidade_test_X)
+        #classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
+        #classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
         
     
     elif(normalization == 2):
@@ -380,17 +383,17 @@ def preprocess_physionet2012(
         undefined_gender_test_X = scaler.transform(undefined_gender_test_X)
         more_than_or_equal_to_65_test_X = scaler.transform(more_than_or_equal_to_65_test_X) 
         less_than_65_test_X = scaler.transform(less_than_65_test_X)
-        ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
-        ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
-        ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
-        ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
+        #ICUType_1_test_X = scaler.transform(ICUType_1_test_X)
+        #ICUType_2_test_X = scaler.transform(ICUType_2_test_X)
+        #ICUType_3_test_X = scaler.transform(ICUType_3_test_X)
+        #ICUType_4_test_X = scaler.transform(ICUType_4_test_X)
         classificacao_undefined_test_X = scaler.transform(classificacao_undefined_test_X)
         classificacao_baixo_peso_test_X = scaler.transform(classificacao_baixo_peso_test_X)
         classificacao_normal_peso_test_X = scaler.transform(classificacao_normal_peso_test_X)
         classificacao_sobrepeso_test_X = scaler.transform(classificacao_sobrepeso_test_X)
-        classificacao_obesidade_1_test_X = scaler.transform(classificacao_obesidade_1_test_X)
-        classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
-        classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
+        classificacao_obesidade_test_X = scaler.transform(classificacao_obesidade_test_X)
+        #classificacao_obesidade_2_test_X = scaler.transform(classificacao_obesidade_2_test_X)
+        #classificacao_obesidade_3_test_X = scaler.transform(classificacao_obesidade_3_test_X)
 
     # reshape into time series samples
     train_X = train_X.reshape(len(train_set_ids), 48, -1)
@@ -401,17 +404,17 @@ def preprocess_physionet2012(
     undefined_gender_test_X = undefined_gender_test_X.reshape(len(undefined_gender_test_ids), 48, -1)
     more_than_or_equal_to_65_test_X = more_than_or_equal_to_65_test_X.reshape(len(more_than_or_equal_to_65_test_ids), 48, -1)
     less_than_65_test_X = less_than_65_test_X.reshape(len(less_than_65_test_ids), 48, -1)
-    ICUType_1_test_X = ICUType_1_test_X.reshape(len(ICUType_1_ids), 48, -1)
-    ICUType_2_test_X = ICUType_2_test_X.reshape(len(ICUType2_ids), 48, -1)
-    ICUType_3_test_X = ICUType_3_test_X.reshape(len(ICUType_3_ids), 48, -1)
-    ICUType_4_test_X = ICUType_4_test_X.reshape(len(ICUType_4_ids), 48, -1)
+    #ICUType_1_test_X = ICUType_1_test_X.reshape(len(ICUType_1_ids), 48, -1)
+    #ICUType_2_test_X = ICUType_2_test_X.reshape(len(ICUType2_ids), 48, -1)
+    #ICUType_3_test_X = ICUType_3_test_X.reshape(len(ICUType_3_ids), 48, -1)
+    #ICUType_4_test_X = ICUType_4_test_X.reshape(len(ICUType_4_ids), 48, -1)
     classificacao_undefined_test_X = classificacao_undefined_test_X.reshape(len(classificacao_undefined_ids), 48, -1)
     classificacao_baixo_peso_test_X = classificacao_baixo_peso_test_X.reshape(len(classificacao_baixo_peso_ids), 48, -1)
     classificacao_normal_peso_test_X = classificacao_normal_peso_test_X.reshape(len(classificacao_normal_peso_ids), 48, -1)
     classificacao_sobrepeso_test_X = classificacao_sobrepeso_test_X.reshape(len(classificacao_sobrepeso_ids), 48, -1)
-    classificacao_obesidade_1_test_X = classificacao_obesidade_1_test_X.reshape(len(classificacao_obesidade_1_ids), 48, -1)
-    classificacao_obesidade_2_test_X = classificacao_obesidade_2_test_X.reshape(len(classificacao_obesidade_2_ids), 48, -1)
-    classificacao_obesidade_3_test_X = classificacao_obesidade_3_test_X.reshape(len(classificacao_obesidade_3_ids), 48, -1)
+    classificacao_obesidade_test_X = classificacao_obesidade_test_X.reshape(len(classificacao_obesidade_ids), 48, -1)
+    #classificacao_obesidade_2_test_X = classificacao_obesidade_2_test_X.reshape(len(classificacao_obesidade_2_ids), 48, -1)
+    #classificacao_obesidade_3_test_X = classificacao_obesidade_3_test_X.reshape(len(classificacao_obesidade_3_ids), 48, -1)
 
     
     
@@ -424,17 +427,17 @@ def preprocess_physionet2012(
     undefined_gender_test_y = y[y.index.isin(undefined_gender_test_ids)].sort_index()
     more_than_or_equal_to_65_test_y = y[y.index.isin(more_than_or_equal_to_65_test_ids)].sort_index()
     less_than_65_test_y = y[y.index.isin(less_than_65_test_ids)].sort_index()
-    ICUType_1_test_y = y[y.index.isin(ICUType_1_ids)].sort_index()
-    ICUType_2_test_y = y[y.index.isin(ICUType2_ids)].sort_index()
-    ICUType_3_test_y = y[y.index.isin(ICUType_3_ids)].sort_index()
-    ICUType_4_test_y = y[y.index.isin(ICUType_4_ids)].sort_index()
+    #ICUType_1_test_y = y[y.index.isin(ICUType_1_ids)].sort_index()
+    #ICUType_2_test_y = y[y.index.isin(ICUType2_ids)].sort_index()
+    #ICUType_3_test_y = y[y.index.isin(ICUType_3_ids)].sort_index()
+    #ICUType_4_test_y = y[y.index.isin(ICUType_4_ids)].sort_index()
     classificacao_undefined_test_y = y[y.index.isin(classificacao_undefined_ids)].sort_index()
     classificacao_baixo_peso_test_y = y[y.index.isin(classificacao_baixo_peso_ids)].sort_index()
     classificacao_normal_peso_test_y = y[y.index.isin(classificacao_normal_peso_ids)].sort_index()
     classificacao_sobrepeso_test_y = y[y.index.isin(classificacao_sobrepeso_ids)].sort_index()
-    classificacao_obesidade_1_test_y = y[y.index.isin(classificacao_obesidade_1_ids)].sort_index()
-    classificacao_obesidade_2_test_y = y[y.index.isin(classificacao_obesidade_2_ids)].sort_index()
-    classificacao_obesidade_3_test_y = y[y.index.isin(classificacao_obesidade_3_ids)].sort_index()
+    classificacao_obesidade_test_y = y[y.index.isin(classificacao_obesidade_ids)].sort_index()
+    #classificacao_obesidade_2_test_y = y[y.index.isin(classificacao_obesidade_2_ids)].sort_index()
+    #classificacao_obesidade_3_test_y = y[y.index.isin(classificacao_obesidade_3_ids)].sort_index()
 
     train_y = train_y.to_numpy()
     val_y = val_y.to_numpy() 
@@ -444,17 +447,17 @@ def preprocess_physionet2012(
     undefined_gender_test_y = undefined_gender_test_y.to_numpy()
     more_than_or_equal_to_65_test_y = more_than_or_equal_to_65_test_y.to_numpy()
     less_than_65_test_y = less_than_65_test_y.to_numpy()
-    ICUType_1_test_y = ICUType_1_test_y.to_numpy()
-    ICUType_2_test_y = ICUType_2_test_y.to_numpy()
-    ICUType_3_test_y = ICUType_3_test_y.to_numpy()
-    ICUType_4_test_y = ICUType_4_test_y.to_numpy()
+    #ICUType_1_test_y = ICUType_1_test_y.to_numpy()
+    #ICUType_2_test_y = ICUType_2_test_y.to_numpy()
+    #ICUType_3_test_y = ICUType_3_test_y.to_numpy()
+    #ICUType_4_test_y = ICUType_4_test_y.to_numpy()
     classificacao_undefined_test_y = classificacao_undefined_test_y.to_numpy()
     classificacao_baixo_peso_test_y = classificacao_baixo_peso_test_y.to_numpy()
     classificacao_normal_peso_test_y = classificacao_normal_peso_test_y.to_numpy()
     classificacao_sobrepeso_test_y = classificacao_sobrepeso_test_y.to_numpy()
-    classificacao_obesidade_1_test_y = classificacao_obesidade_1_test_y.to_numpy()
-    classificacao_obesidade_2_test_y = classificacao_obesidade_2_test_y.to_numpy()
-    classificacao_obesidade_3_test_y = classificacao_obesidade_3_test_y.to_numpy()
+    classificacao_obesidade_test_y = classificacao_obesidade_test_y.to_numpy()
+    #classificacao_obesidade_2_test_y = classificacao_obesidade_2_test_y.to_numpy()
+    #classificacao_obesidade_3_test_y = classificacao_obesidade_3_test_y.to_numpy()
    
 
     # fetch ICUType for train/val/test sets
@@ -466,19 +469,19 @@ def preprocess_physionet2012(
     test_ICUType_undefined_gender = ICUType[ICUType.index.isin(undefined_gender_test_ids)].sort_index()
     test_ICUType_more_than_or_equal_to_65 = ICUType[ICUType.index.isin(more_than_or_equal_to_65_test_ids)].sort_index()
     test_ICUType_less_than_65 = ICUType[ICUType.index.isin(less_than_65_test_ids)].sort_index()
-    test_ICUType_1 = ICUType[ICUType.index.isin(ICUType_1_ids)].sort_index()
-    test_ICUType_2 = ICUType[ICUType.index.isin(ICUType2_ids)].sort_index()
-    test_ICUType_3 = ICUType[ICUType.index.isin(ICUType_3_ids)].sort_index()
-    test_ICUType_4 = ICUType[ICUType.index.isin(ICUType_4_ids)].sort_index()
+    #test_ICUType_1 = ICUType[ICUType.index.isin(ICUType_1_ids)].sort_index()
+    #test_ICUType_2 = ICUType[ICUType.index.isin(ICUType2_ids)].sort_index()
+    #test_ICUType_3 = ICUType[ICUType.index.isin(ICUType_3_ids)].sort_index()
+    #test_ICUType_4 = ICUType[ICUType.index.isin(ICUType_4_ids)].sort_index()
     test_ICUType_classificacao_undefined = ICUType[ICUType.index.isin(classificacao_undefined_ids)].sort_index()
     test_ICUType_classificao_baixo_peso = ICUType[ICUType.index.isin(classificacao_baixo_peso_ids)].sort_index()
     test_ICUType_classificacao_normal_peso = ICUType[ICUType.index.isin(classificacao_normal_peso_ids)].sort_index()
     test_ICUType_classificacao_sobrepeso = ICUType[ICUType.index.isin(classificacao_sobrepeso_ids)].sort_index()
-    test_ICUType_classificacao_obesidade_1 = ICUType[ICUType.index.isin(classificacao_obesidade_1_ids)].sort_index()
-    test_ICUType_classificacao_obesidade_2 = ICUType[ICUType.index.isin(classificacao_obesidade_2_ids)].sort_index()
-    test_ICUType_classificacao_obesidade_3 = ICUType[ICUType.index.isin(classificacao_obesidade_3_ids)].sort_index()
+    test_ICUType_classificacao_obesidade = ICUType[ICUType.index.isin(classificacao_obesidade_ids)].sort_index()
+    #test_ICUType_classificacao_obesidade_2 = ICUType[ICUType.index.isin(classificacao_obesidade_2_ids)].sort_index()
+    #test_ICUType_classificacao_obesidade_3 = ICUType[ICUType.index.isin(classificacao_obesidade_3_ids)].sort_index()
 
-    train_ICUType, val_ICUType, test_ICUType, test_ICUType_female_gender, test_ICUType_male_gender, test_ICUType_undefined_gender,  test_ICUType_more_than_or_equal_to_65, test_ICUType_less_than_65, test_ICUType_1, test_ICUType_2, test_ICUType_3, test_ICUType_4, test_ICUType_classificacao_undefined, test_ICUType_classificao_baixo_peso, test_ICUType_classificacao_normal_peso, test_ICUType_classificacao_sobrepeso, test_ICUType_classificacao_obesidade_1, test_ICUType_classificacao_obesidade_2, test_ICUType_classificacao_obesidade_3= (
+    train_ICUType, val_ICUType, test_ICUType, test_ICUType_female_gender, test_ICUType_male_gender, test_ICUType_undefined_gender,  test_ICUType_more_than_or_equal_to_65, test_ICUType_less_than_65, test_ICUType_classificacao_undefined, test_ICUType_classificao_baixo_peso, test_ICUType_classificacao_normal_peso, test_ICUType_classificacao_sobrepeso, test_ICUType_classificacao_obesidade= (
         train_ICUType.to_numpy(),
         val_ICUType.to_numpy(),
         test_ICUType.to_numpy(),
@@ -487,17 +490,17 @@ def preprocess_physionet2012(
         test_ICUType_undefined_gender.to_numpy(),
         test_ICUType_more_than_or_equal_to_65.to_numpy(),
         test_ICUType_less_than_65.to_numpy(),
-        test_ICUType_1.to_numpy(),
-        test_ICUType_2.to_numpy(),
-        test_ICUType_3.to_numpy(),
-        test_ICUType_4.to_numpy(),
+        #test_ICUType_1.to_numpy(),
+        #test_ICUType_2.to_numpy(),
+        #test_ICUType_3.to_numpy(),
+        #test_ICUType_4.to_numpy(),
         test_ICUType_classificacao_undefined.to_numpy(),
         test_ICUType_classificao_baixo_peso.to_numpy(),
         test_ICUType_classificacao_normal_peso.to_numpy(),
         test_ICUType_classificacao_sobrepeso.to_numpy(),
-        test_ICUType_classificacao_obesidade_1.to_numpy(),
-        test_ICUType_classificacao_obesidade_2.to_numpy(),
-        test_ICUType_classificacao_obesidade_3.to_numpy()
+        test_ICUType_classificacao_obesidade.to_numpy(),
+        #test_ICUType_classificacao_obesidade_2.to_numpy(),
+        #test_ICUType_classificacao_obesidade_3.to_numpy()
     )
 
     # assemble the final processed data into a dictionary
@@ -534,18 +537,18 @@ def preprocess_physionet2012(
         "less_than_65_test_X": less_than_65_test_X,
         "less_than_65_test_y": less_than_65_test_y.flatten(),
         "test_ICUType_less_than_65": test_ICUType_less_than_65.flatten(),
-        "ICUType_1_test_X" : ICUType_1_test_X,
-        "ICUType_1_test_y": ICUType_1_test_y.flatten(),
-        "test_ICUType_1": test_ICUType_1.flatten(),
-        "ICUType_2_test_X": ICUType_2_test_X,
-        "ICUType_2_test_y": ICUType_2_test_y.flatten(),
-        "test_ICUType_2": test_ICUType_2.flatten(),
-        "ICUType_3_test_X": ICUType_3_test_X,
-        "ICUType_3_test_y": ICUType_3_test_y.flatten(),
-        "test_ICUType_3": test_ICUType_4.flatten(),
-        "ICUType_4_test_X": ICUType_4_test_X,
-        "ICUType_4_test_y": ICUType_4_test_y.flatten(),
-        "test_ICUType_4": test_ICUType_4.flatten(),
+        #"ICUType_1_test_X" : ICUType_1_test_X,
+        #"ICUType_1_test_y": ICUType_1_test_y.flatten(),
+        #"test_ICUType_1": test_ICUType_1.flatten(),
+        #"ICUType_2_test_X": ICUType_2_test_X,
+        #"ICUType_2_test_y": ICUType_2_test_y.flatten(),
+        #"test_ICUType_2": test_ICUType_2.flatten(),
+        #"ICUType_3_test_X": ICUType_3_test_X,
+        #"ICUType_3_test_y": ICUType_3_test_y.flatten(),
+        #"test_ICUType_3": test_ICUType_4.flatten(),
+        #"ICUType_4_test_X": ICUType_4_test_X,
+        #"ICUType_4_test_y": ICUType_4_test_y.flatten(),
+        #"test_ICUType_4": test_ICUType_4.flatten(),
         "classificacao_undefined_test_X": classificacao_undefined_test_X,
         "classificacao_undefined_test_y": classificacao_undefined_test_y.flatten(),
         "test_ICUType_classificacao_undefined": test_ICUType_classificacao_undefined.flatten(),
@@ -558,15 +561,15 @@ def preprocess_physionet2012(
         "classificacao_sobrepeso_test_X": classificacao_sobrepeso_test_X,
         "classificacao_sobrepeso_test_y": classificacao_sobrepeso_test_y.flatten(),
         "test_ICUType_classificacao_sobrepeso": test_ICUType_classificacao_sobrepeso.flatten(),
-        "classificacao_obesidade_1_test_X": classificacao_obesidade_1_test_X,
-        "classificacao_obesidade_1_test_y": classificacao_obesidade_1_test_y.flatten(),
-        "test_ICUType_classificacao_obesidade_1": test_ICUType_classificacao_obesidade_1.flatten(),
-        "classificacao_obesidade_2_test_X": classificacao_obesidade_2_test_X,
-        "classificacao_obesidade_2_test_y": classificacao_obesidade_2_test_y.flatten(),
-        "test_ICUType_classificacao_obesidade_2": test_ICUType_classificacao_obesidade_2.flatten(),
-        "classificacao_obesidade_3_test_X": classificacao_obesidade_3_test_X,
-        "classificacao_obesidade_3_test_y": classificacao_obesidade_3_test_y.flatten(),
-        "test_ICUType_classificacao_obesidade_3": test_ICUType_classificacao_obesidade_3.flatten(),
+        "classificacao_obesidade_test_X": classificacao_obesidade_test_X,
+        "classificacao_obesidade_test_y": classificacao_obesidade_test_y.flatten(),
+        "test_ICUType_classificacao_obesidade": test_ICUType_classificacao_obesidade.flatten(),
+        #"classificacao_obesidade_2_test_X": classificacao_obesidade_2_test_X,
+        #"classificacao_obesidade_2_test_y": classificacao_obesidade_2_test_y.flatten(),
+        #"test_ICUType_classificacao_obesidade_2": test_ICUType_classificacao_obesidade_2.flatten(),
+        #"classificacao_obesidade_3_test_X": classificacao_obesidade_3_test_X,
+        #"classificacao_obesidade_3_test_y": classificacao_obesidade_3_test_y.flatten(),
+        #"test_ICUType_classificacao_obesidade_3": test_ICUType_classificacao_obesidade_3.flatten(),
         #normalization
         "scaler":scaler
     }
@@ -585,17 +588,17 @@ def preprocess_physionet2012(
         undefined_gender_test_X_ori = undefined_gender_test_X
         more_than_or_equal_to_65_test_X_ori = more_than_or_equal_to_65_test_X
         less_than_65_test_X_ori = less_than_65_test_X
-        ICUType_1_test_X_ori = ICUType_1_test_X 
-        ICUType_2_test_X_ori = ICUType_2_test_X
-        ICUType_3_test_X_ori = ICUType_3_test_X
-        ICUType_4_test_X_ori = ICUType_4_test_X
+        #ICUType_1_test_X_ori = ICUType_1_test_X 
+        #ICUType_2_test_X_ori = ICUType_2_test_X
+        #ICUType_3_test_X_ori = ICUType_3_test_X
+        #ICUType_4_test_X_ori = ICUType_4_test_X
         classificacao_undefined_test_X_ori = classificacao_undefined_test_X
         classificacao_baixo_peso_test_X_ori = classificacao_baixo_peso_test_X
         classificacao_normal_peso_test_X_ori = classificacao_normal_peso_test_X
         classificacao_sobrepeso_test_X_ori = classificacao_sobrepeso_test_X
-        classificacao_obesidade_1_test_X_ori = classificacao_obesidade_1_test_X
-        classificacao_obesidade_2_test_X_ori = classificacao_obesidade_2_test_X
-        classificacao_obesidade_3_test_X_ori = classificacao_obesidade_3_test_X
+        classificacao_obesidade_test_X_ori = classificacao_obesidade_test_X
+        #classificacao_obesidade_2_test_X_ori = classificacao_obesidade_2_test_X
+        #classificacao_obesidade_3_test_X_ori = classificacao_obesidade_3_test_X
 
         # mask values in the validation set as ground truth
         val_X = create_missingness(val_X, rate, pattern, **kwargs)
@@ -606,17 +609,17 @@ def preprocess_physionet2012(
         undefined_gender_test_X = create_missingness(undefined_gender_test_X, rate, pattern, **kwargs)
         more_than_or_equal_to_65_test_X = create_missingness(more_than_or_equal_to_65_test_X, rate, pattern, **kwargs)
         less_than_65_test_X = less_than_65_test_X = create_missingness(less_than_65_test_X, rate, pattern, **kwargs)
-        ICUType_1_test_X = create_missingness(ICUType_1_test_X, rate, pattern, **kwargs)
-        ICUType_2_test_X = create_missingness(ICUType_2_test_X, rate, pattern, **kwargs)
-        ICUType_3_test_X = create_missingness(ICUType_3_test_X, rate, pattern, **kwargs)
-        ICUType_4_test_X = create_missingness(ICUType_4_test_X, rate, pattern, **kwargs)
+        #ICUType_1_test_X = create_missingness(ICUType_1_test_X, rate, pattern, **kwargs)
+        #ICUType_2_test_X = create_missingness(ICUType_2_test_X, rate, pattern, **kwargs)
+        #ICUType_3_test_X = create_missingness(ICUType_3_test_X, rate, pattern, **kwargs)
+        #ICUType_4_test_X = create_missingness(ICUType_4_test_X, rate, pattern, **kwargs)
         classificacao_undefined_test_X = create_missingness(classificacao_undefined_test_X, rate, pattern, **kwargs)
         classificacao_baixo_peso_test_X = create_missingness(classificacao_baixo_peso_test_X, rate, pattern, **kwargs)
         classificacao_normal_peso_test_X = create_missingness(classificacao_normal_peso_test_X, rate, pattern, **kwargs)
         classificacao_sobrepeso_test_X = create_missingness(classificacao_sobrepeso_test_X, rate, pattern, **kwargs)
-        classificacao_obesidade_1_test_X = create_missingness(classificacao_obesidade_1_test_X, rate, pattern, **kwargs)
-        classificacao_obesidade_2_test_X = create_missingness(classificacao_obesidade_2_test_X, rate, pattern, **kwargs)
-        classificacao_obesidade_3_test_X = create_missingness(classificacao_obesidade_3_test_X, rate, pattern, **kwargs)
+        classificacao_obesidade_test_X = create_missingness(classificacao_obesidade_test_X, rate, pattern, **kwargs)
+        #classificacao_obesidade_2_test_X = create_missingness(classificacao_obesidade_2_test_X, rate, pattern, **kwargs)
+        #classificacao_obesidade_3_test_X = create_missingness(classificacao_obesidade_3_test_X, rate, pattern, **kwargs)
 
         processed_dataset["train_X"] = train_X
 
@@ -634,17 +637,17 @@ def preprocess_physionet2012(
         processed_dataset["undefined_gender_test_X"] = undefined_gender_test_X
         processed_dataset["more_than_or_equal_to_65_test_X"] = more_than_or_equal_to_65_test_X 
         processed_dataset["less_than_65_test_X"] = less_than_65_test_X
-        processed_dataset["ICUType_1_test_X"] = ICUType_1_test_X
-        processed_dataset["ICUType_2_test_X"] =ICUType_2_test_X
-        processed_dataset["ICUType_3_test_X"] = ICUType_3_test_X
-        processed_dataset["ICUType_4_test_X"] = ICUType_4_test_X
+        #processed_dataset["ICUType_1_test_X"] = ICUType_1_test_X
+       # processed_dataset["ICUType_2_test_X"] =ICUType_2_test_X
+        #processed_dataset["ICUType_3_test_X"] = ICUType_3_test_X
+        #processed_dataset["ICUType_4_test_X"] = ICUType_4_test_X
         processed_dataset["classificacao_undefined_test_X"] = classificacao_undefined_test_X 
         processed_dataset["classificacao_baixo_peso_test_X"] = classificacao_baixo_peso_test_X
         processed_dataset["classificacao_normal_peso_test_X"] = classificacao_normal_peso_test_X
         processed_dataset["classificacao_sobrepeso_test_X"] = classificacao_sobrepeso_test_X
-        processed_dataset["classificacao_obesidade_1_test_X"] = classificacao_obesidade_1_test_X
-        processed_dataset["classificacao_obesidade_2_test_X"] = classificacao_obesidade_2_test_X
-        processed_dataset["classificacao_obesidade_3_test_X"] = classificacao_obesidade_3_test_X
+        processed_dataset["classificacao_obesidade_test_X"] = classificacao_obesidade_test_X
+        #processed_dataset["classificacao_obesidade_2_test_X"] = classificacao_obesidade_2_test_X
+        #processed_dataset["classificacao_obesidade_3_test_X"] = classificacao_obesidade_3_test_X
     
         processed_dataset["test_X_ori"] = test_X_ori
         processed_dataset["female_gender_test_X_ori"] = female_gender_test_X_ori
@@ -652,17 +655,17 @@ def preprocess_physionet2012(
         processed_dataset["undefined_gender_test_X_ori"] = undefined_gender_test_X_ori
         processed_dataset["more_than_or_equal_to_65_test_X_ori"] = more_than_or_equal_to_65_test_X_ori 
         processed_dataset["less_than_65_test_X_ori"] = less_than_65_test_X_ori
-        processed_dataset["ICUType_1_test_X_ori"] = ICUType_1_test_X_ori
-        processed_dataset["ICUType_2_test_X_ori"] = ICUType_2_test_X_ori
-        processed_dataset["ICUType_3_test_X_ori"] = ICUType_3_test_X_ori
-        processed_dataset["ICUType_4_test_X_ori"] = ICUType_4_test_X_ori
+        #processed_dataset["ICUType_1_test_X_ori"] = ICUType_1_test_X_ori
+        #processed_dataset["ICUType_2_test_X_ori"] = ICUType_2_test_X_ori
+        #processed_dataset["ICUType_3_test_X_ori"] = ICUType_3_test_X_ori
+        #processed_dataset["ICUType_4_test_X_ori"] = ICUType_4_test_X_ori
         processed_dataset["classificacao_undefined_test_X_ori"] = classificacao_undefined_test_X_ori 
         processed_dataset["classificacao_baixo_peso_test_X_ori"] = classificacao_baixo_peso_test_X_ori
         processed_dataset["classificacao_normal_peso_test_X_ori"] = classificacao_normal_peso_test_X_ori
         processed_dataset["classificacao_sobrepeso_test_X_ori"] = classificacao_sobrepeso_test_X_ori
-        processed_dataset["classificacao_obesidade_1_test_X_ori"] = classificacao_obesidade_1_test_X_ori
-        processed_dataset["classificacao_obesidade_2_test_X_ori"] = classificacao_obesidade_2_test_X_ori
-        processed_dataset["classificacao_obesidade_3_test_X_ori"] = classificacao_obesidade_3_test_X_ori
+        processed_dataset["classificacao_obesidade_test_X_ori"] = classificacao_obesidade_test_X_ori
+        #processed_dataset["classificacao_obesidade_2_test_X_ori"] = classificacao_obesidade_2_test_X_ori
+        #processed_dataset["classificacao_obesidade_3_test_X_ori"] = classificacao_obesidade_3_test_X_ori
 
         test_X_indicating_mask = np.isnan(test_X_ori) ^ np.isnan(test_X)
         logger.info(

@@ -2,11 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class toolkits:
-    def reshape(dataset):
-        for i in range(len(dataset)):
-            dataset[i] = dataset[i].reshape(len(dataset[i])* 48 * 37)
-        return dataset
-    
+       
     def gini(model_ae):
         sorted_ae = model_ae.copy()
         sorted_ae.sort()
@@ -65,3 +61,11 @@ class toolkits:
         ax.legend()
         plt.tight_layout()
         plt.show()
+
+    def bootstrap(ae, n_resamples):
+        distribution_bootstrap = []
+
+        for i in range(n_resamples):
+            indices = np.random.randint(0, len(ae) - 1, size = len(ae))
+            ae_resamples = ae[indices]
+            distribution_bootstrap.append(toolkits.gini(ae_resamples))
