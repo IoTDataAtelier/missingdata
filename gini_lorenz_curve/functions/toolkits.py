@@ -55,8 +55,8 @@ class toolkits:
         ax.plot([0, 1], [0, 1], color='black', linestyle='--', label='perfect equality')
 
         ax.set_title("Lorenz Curve - 5 Models")
-        ax.set_xlabel("Patients")
-        ax.set_ylabel("Absolute error (AE)")
+        ax.set_xlabel("Cummulative Share of Imputations")
+        ax.set_ylabel("Cummulative Share of Absolute Errors")
         ax.grid(True)
         ax.legend()
         plt.tight_layout()
@@ -69,3 +69,5 @@ class toolkits:
             indices = np.random.randint(0, len(ae) - 1, size = len(ae))
             ae_resamples = ae[indices]
             distribution_bootstrap.append(toolkits.gini(ae_resamples))
+
+        return distribution_bootstrap
