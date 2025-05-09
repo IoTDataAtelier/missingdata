@@ -21,17 +21,11 @@ class toolkits:
                 "undefined_gender_test_X_ori": dataset['undefined_gender_test_X_ori'],
                 "more_than_or_equal_to_65_test_X_ori":  dataset['more_than_or_equal_to_65_test_X_ori'],
                 "less_than_65_test_X_ori": dataset['less_than_65_test_X_ori'],
-                "ICUType_1_test_X_ori": dataset['ICUType_1_test_X_ori'],
-                "ICUType_2_test_X_ori": dataset['ICUType_2_test_X_ori'],
-                "ICUType_3_test_X_ori": dataset['ICUType_3_test_X_ori'],
-                "ICUType_4_test_X_ori": dataset['ICUType_4_test_X_ori'],
                 "classificacao_undefined_test_X_ori": dataset['classificacao_undefined_test_X_ori'],
                 "classificacao_baixo_peso_test_X_ori": dataset['classificacao_baixo_peso_test_X_ori'],
                 "classificacao_normal_peso_test_X_ori": dataset['classificacao_normal_peso_test_X_ori'],
                 "classificacao_sobrepeso_test_X_ori": dataset['classificacao_sobrepeso_test_X_ori'],
-                "classificacao_obesidade_1_test_X_ori": dataset['classificacao_obesidade_1_test_X_ori'],
-                "classificacao_obesidade_2_test_X_ori": dataset['classificacao_obesidade_2_test_X_ori'],
-                "classificacao_obesidade_3_test_X_ori": dataset['classificacao_obesidade_3_test_X_ori']
+                "classificacao_obesidade_test_X_ori": dataset['classificacao_obesidade_test_X_ori'],
             }
 
             dataset_for_testing = {
@@ -41,17 +35,11 @@ class toolkits:
                 "undefined_gender_test_X": dataset['undefined_gender_test_X'],
                 "more_than_or_equal_to_65_test_X":  dataset['more_than_or_equal_to_65_test_X'],
                 "less_than_65_test_X": dataset['less_than_65_test_X'],
-                "ICUType_1_test_X": dataset['ICUType_1_test_X'],
-                "ICUType_2_test_X": dataset['ICUType_2_test_X'],
-                "ICUType_3_test_X": dataset['ICUType_3_test_X'],
-                "ICUType_4_test_X": dataset['ICUType_4_test_X'],
                 "classificacao_undefined_test_X": dataset['classificacao_undefined_test_X'],
                 "classificacao_baixo_peso_test_X": dataset['classificacao_baixo_peso_test_X'],
                 "classificacao_normal_peso_test_X": dataset['classificacao_normal_peso_test_X'],
                 "classificacao_sobrepeso_test_X": dataset['classificacao_sobrepeso_test_X'],
-                "classificacao_obesidade_1_test_X": dataset['classificacao_obesidade_1_test_X'],
-                "classificacao_obesidade_2_test_X": dataset['classificacao_obesidade_2_test_X'],
-                "classificacao_obesidade_3_test_X": dataset['classificacao_obesidade_3_test_X']
+                "classificacao_obesidade_test_X": dataset['classificacao_obesidade_test_X'],
             }
 
             return dataset_for_training, dataset_for_validating, dataset_for_testing_ori, dataset_for_testing
@@ -131,3 +119,15 @@ class toolkits:
         ax.legend()
         plt.tight_layout()
         plt.show()
+
+
+    def bootstrap_v2(ae, subgrupo, n_resamples):
+        distribution_bootstrap = []
+
+        for i in range(n_resamples):
+            indices = np.random.randint(0, len(ae[subgrupo]) - 1, size = len(ae[subgrupo]))
+            resampling_ae = ae[subgrupo][indices]
+            gini = toolkits.gini(resampling_ae)
+            distribution_bootstrap.append(gini)
+        
+        return distribution_bootstrap
