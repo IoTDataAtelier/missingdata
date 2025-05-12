@@ -3,15 +3,19 @@ import sys
 import pypots
 import numpy as np
 import benchpots
+import torch
 import matplotlib.pyplot as plt
 from pypots.optim import Adam
 from pypots.imputation import SAITS, BRITS, USGAN, GPVAE, MRNN
 from pypots.utils.random import set_random_seed
+from multiprocessing import Process, set_start_method
 module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from MAEModify.error import calc_mae
+#from MAEModify.error import calc_mae
+
+
 
 def experiments():
 
@@ -60,7 +64,7 @@ def experiments():
 
     saits.load("../mae/tutorial_results/imputation/saits/20250422_T181642/SAITS.pypots")
 
-    saits_mae, saits_ae = calc_mae(
+    saits_mae = pypots.calc_mae(
         saits_imputation,
         test_X_ori,
         test_X_indicating_mask,
@@ -69,12 +73,10 @@ def experiments():
     print(saits_mae)
 
 
-with torch.cuda.device(1):
+with torch.cuda.device(0):
     if __name__ == '__main__':
         set_start_method('spawn')
         info('main line')
-        paths = ['/data/MIMII/pump/id_00']
-        csv_names = ['EXP_SOUND_MFCC_PUMP']
-        p = Process(target=run_ganf_experiment,args=(paths,csv_names))
+        p = Process(target=experiments)
         p.start()
         p.join()
