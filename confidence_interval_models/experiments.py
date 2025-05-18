@@ -79,4 +79,4 @@ with torch.cuda.device(0):
         info('main line')
         p = Process(target=experiments)
         p.start()
-        p.join()
+        p.join() ## entrando
