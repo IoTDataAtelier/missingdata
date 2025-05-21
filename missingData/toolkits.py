@@ -222,6 +222,19 @@ class toolkits:
         
         return distribution_bootstrap
     
+    def bootstrap_v3(ae, mask, subgrupo, variavel, n_resamples):
+        distribution_bootstrap = []
+
+        for i in range(n_resamples):
+            indices = np.random.randint(0, len(ae[subgrupo][variavel]) - 1, size = len(ae[subgrupo][variavel]))
+            resampling_ae = ae[subgrupo][variavel][indices]
+            resampling_mask = mask[subgrupo][variavel][indices]
+            resampling_std = resampling_ae[resampling_mask == True]
+            std = np.std(resampling_std)
+            distribution_bootstrap.append(std)
+        
+        return distribution_bootstrap
+    
         
 
     def diff_mae_top_5(mae_model, subgrupo1, subgrupo2, variables):
