@@ -39,7 +39,7 @@ class toolkits:
         if labels is None:
             labels = ["SAITS", "BRITS", "US-GAN", "GP-VAE", "MRNN"]
         if colors is None:
-            colors = ['blue', 'green', 'orange', 'purple', 'red']
+            colors = ['magenta', 'navy', 'olive', 'teal', 'salmon']
         
         fig, ax = plt.subplots(figsize=[6,6])
 
@@ -54,12 +54,13 @@ class toolkits:
         # Linha de igualdade
         ax.plot([0, 1], [0, 1], color='black', linestyle='--', label='perfect equality')
 
-        ax.set_title("Lorenz Curve by Model")
-        ax.set_xlabel("Cummulative Share of Imputations")
-        ax.set_ylabel("Cummulative Share of Absolute Errors")
+        ax.set_title("Lorenz Curves by Model")
+        ax.set_xlabel("Cummulative Share of Imputation Measurements")
+        ax.set_ylabel("Cummulative Share of Imputation Errors")
         ax.grid(True)
         ax.legend()
         plt.tight_layout()
+        plt.savefig("lorenz_curves_by_model.pdf", format='pdf', bbox_inches='tight')
         plt.show()
 
     def bootstrap(ae, n_resamples):
