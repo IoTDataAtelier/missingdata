@@ -54,7 +54,7 @@ class toolkits:
         # Linha de igualdade
         ax.plot([0, 1], [0, 1], color='black', linestyle='--', label='perfect equality')
 
-        ax.set_title("Lorenz Curves by Model")
+        ax.set_title("Lorenz Curves by Model for All Models")
         ax.set_xlabel("Cummulative Share of Imputation Measurements")
         ax.set_ylabel("Cummulative Share of Imputation Errors")
         ax.grid(True)
