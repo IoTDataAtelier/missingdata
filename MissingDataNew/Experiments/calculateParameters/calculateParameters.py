@@ -1,16 +1,13 @@
 import os
 import sys
-import pypots
 import numpy as np
 import benchpots
-import matplotlib.pyplot as plt
 from pypots.optim import Adam
 from pypots.imputation import SAITS, BRITS, USGAN, GPVAE, MRNN
 from pypots.utils.random import set_random_seed
 module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
-
 
 set_random_seed()
 physionet2012_dataset = benchpots.datasets.preprocess_physionet2012(subset="all", rate=0.1)
@@ -119,39 +116,23 @@ mrnn = MRNN(
     model_saving_strategy="best",
 )
 
-saits.load("../mae/tutorial_results/imputation/saits/20250422_T181642/SAITS.pypots")
 
-brits.load("../mae/tutorial_results/imputation/brits/20250422_T181643/BRITS.pypots")
-
-us_gan.load("../mae/tutorial_results/imputation/us_gan/20250422_T181643/USGAN.pypots")
-
-gp_vae.load("../mae/tutorial_results/imputation/gp_vae/20250422_T181643/GPVAE.pypots")
-
-mrnn.load("../mae/tutorial_results/imputation/mrnn/20250422_T181643/MRNN.pypots")
+def get_total_params (model_x):
+    total_params = sum(p.numel() for p in model_x.model.parameters() if p.requires_grad)
+    return total_params
 
 
-saits_results = saits.predict(dataset_for_IMPU_testing)
-saits_imputation = saits_results["imputation"]
+total_params_saits = get_total_params(saits)
+print(f"Total de parâmetros treináveis SAITS: {total_params_saits}")
 
-np.save('physionet_saits', saits_imputation)
+total_params_brits = get_total_params(brits)
+print(f"Total de parâmetros treináveis BRITS: {total_params_brits}")
 
-brits_results = brits.predict(dataset_for_IMPU_testing)
-brits_imputation = brits_results["imputation"]
+total_params_us_gan = get_total_params(us_gan)
+print(f"Total de parâmetros treináveis USGAN: {total_params_us_gan}")
 
-np.save('physionet_brits', brits_imputation)
+total_params_gp_vae = get_total_params(gp_vae)
+print(f"Total de parâmetros treináveis GPVAE: {total_params_gp_vae}")
 
-us_gan_results = us_gan.predict(dataset_for_IMPU_testing)
-us_gan_imputation = us_gan_results["imputation"]
-
-np.save('physionet_usgan', us_gan_imputation)
-
-gp_vae_results = gp_vae.predict(dataset_for_IMPU_testing)
-gp_vae_imputation = gp_vae_results["imputation"]
-
-np.save('physionet_gpvae', gp_vae_imputation)
-
-mrnn_results = mrnn.predict(dataset_for_IMPU_testing)
-mrnn_imputation = mrnn_results["imputation"]
-
-np.save('physionet_mrnn', mrnn_imputation)
-
+total_params_mrnn = get_total_params(mrnn)
+print(f"Total de parâmetros treináveis MRNN: {total_params_mrnn}")
