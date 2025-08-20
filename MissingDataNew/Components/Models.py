@@ -4,7 +4,7 @@ import numpy as np
 
 class Models:
 
-    def model(model, dataset):
+    def model(model, dataset, train):
 
         if model == "saits":
             model_imputation= SAITS(
@@ -26,6 +26,7 @@ class Models:
                 num_workers=0,
                 device=None,
                 model_saving_strategy="best",
+                saving_path="tutorial_results/imputation/saits" if train else None
             )
         
         elif model == "brits":
@@ -40,6 +41,7 @@ class Models:
                 num_workers=0,
                 device=None,
                 model_saving_strategy="best",
+                saving_path="tutorial_results/imputation/brits" if train else None
             )
 
         elif model == "usgan":
@@ -60,6 +62,7 @@ class Models:
                 num_workers=0,
                 device=None,
                 model_saving_strategy="best",
+                saving_path="tutorial_results/imputation/usgan" if train else None
             )
         
         elif model == "gpvae":
@@ -84,6 +87,7 @@ class Models:
                 num_workers=0,
                 device=None,
                 model_saving_strategy="best",
+                saving_path="tutorial_results/imputation/gpvae" if train else None
             )
         
         elif model == "mrnn":
@@ -97,6 +101,7 @@ class Models:
                 num_workers=0,
                 device=None,
                 model_saving_strategy="best",
+                saving_path="tutorial_results/imputation/mrnn" if train else None
             )
 
         return model_imputation
