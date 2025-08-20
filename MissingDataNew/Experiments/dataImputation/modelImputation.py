@@ -19,13 +19,13 @@ test_X_indicating_mask = ld.create_indicating_mask(physionet2012_dataset["test_X
 test_X_ori = ld.transform_nan_to_zero(physionet2012_dataset["test_X_ori"])
 
 #Cria a instância do modelo com seus parâmetros
-saits = md.model("saits", physionet2012_dataset)
+model = md.model("saits", physionet2012_dataset, True)
 
 #Carrega treinamento do modelo existente
 path = "/data/victor/missingdata/MissingDataNew/Components/TrainedModels/saits/20250422_T181642/SAITS.pypots"
-md.train_load_model(saits, dataset_for_training, dataset_for_testing, False, path)
+md.train_load_model(model, dataset_for_training, dataset_for_validating, True, path)
 
 #Realiza a imputação e salva o dataset imputado
 path_save_imputation = "/data/victor/missingdata/MissingDataNew/ImputedDatasets/Physionet2012/physionet_saits.npy"
-saits_imputation = md.imputation(saits, dataset_for_testing, path_save_imputation)
+model_imputation = md.imputation(model, dataset_for_validating, path_save_imputation)
 
