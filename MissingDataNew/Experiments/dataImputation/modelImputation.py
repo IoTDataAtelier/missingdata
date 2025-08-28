@@ -27,5 +27,5 @@ md.train_load_model(model, dataset_for_training, dataset_for_validating, True, p
 
 #Realiza a imputação e salva o dataset imputado
 path_save_imputation = "/data/victor/missingdata/MissingDataNew/ImputedDatasets/Physionet2012/physionet_saits.npy"
-model_imputation = md.imputation(model, dataset_for_validating, path_save_imputation)
+model_imputation = md.imputation(model, dataset_for_testing, path_save_imputation)
 
