@@ -2,13 +2,14 @@ import os
 import sys
 import numpy as np
 import benchpots
-from pypots.optim import Adam
-from pypots.imputation import SAITS, BRITS, USGAN, GPVAE, MRNN
-from Models import Models
-from pypots.utils.random import set_random_seed
 module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
+
+from pypots.optim import Adam
+from pypots.imputation import SAITS, BRITS, USGAN, GPVAE, MRNN
+from Components.Models import Models as md
+from pypots.utils.random import set_random_seed
 
 set_random_seed()
 physionet2012_dataset = benchpots.datasets.preprocess_physionet2012(subset="all", rate=0.1)
@@ -30,17 +31,16 @@ dataset_for_IMPU_testing = {
 test_X_indicating_mask = np.isnan(physionet2012_dataset['test_X_ori']) ^ np.isnan(physionet2012_dataset['test_X'])
 test_X_ori = np.nan_to_num(physionet2012_dataset['test_X_ori'])  
 
-models = Models()
 
-saits = models.model("saits", dataset=physionet2012_dataset, train=False)
+saits = md.model("saits", dataset=physionet2012_dataset, train=False)
 
-brits = models.model("brits", dataset=physionet2012_dataset, train=False)
+brits = md.model("brits", dataset=physionet2012_dataset, train=False)
 
-us_gan = models.model("usgan", dataset=physionet2012_dataset, train=False)
+us_gan = md.model("usgan", dataset=physionet2012_dataset, train=False)
 
-gp_vae = models.model("gpvae", dataset=physionet2012_dataset, train=False)
+gp_vae = md.model("gpvae", dataset=physionet2012_dataset, train=False)
 
-mrnn = models.model("mrnn", dataset=physionet2012_dataset, train=False)
+mrnn = md.model("mrnn", dataset=physionet2012_dataset, train=False)
 
 def get_total_params (model_x):
     total_params = sum(p.numel() for p in model_x.model.parameters() if p.requires_grad)
