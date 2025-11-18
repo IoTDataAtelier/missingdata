@@ -49,6 +49,47 @@ class loadDataset:
 
         return dataset_for_train, dataset_for_validation, dataset_for_testing
     
+    def separating_dataset_by_subgroup(dataset):
+
+        dataset_for_training = {
+            "X": dataset['train_X'],
+        }
+
+        dataset_for_validating = {
+            "X": dataset['val_X'],
+            "X_ori": dataset['val_X_ori']
+        }
+
+        dataset_for_testing_ori = {
+            "X_ori": dataset['test_X_ori'],
+            "female_gender_test_X_ori": dataset['female_gender_test_X_ori'],
+            "male_gender_test_X_ori": dataset['male_gender_test_X_ori'],
+            "undefined_gender_test_X_ori": dataset['undefined_gender_test_X_ori'],
+            "more_than_or_equal_to_65_test_X_ori":  dataset['more_than_or_equal_to_65_test_X_ori'],
+            "less_than_65_test_X_ori": dataset['less_than_65_test_X_ori'],
+            "classificacao_undefined_test_X_ori": dataset['classificacao_undefined_test_X_ori'],
+            "classificacao_baixo_peso_test_X_ori": dataset['classificacao_baixo_peso_test_X_ori'],
+            "classificacao_normal_peso_test_X_ori": dataset['classificacao_normal_peso_test_X_ori'],
+            "classificacao_sobrepeso_test_X_ori": dataset['classificacao_sobrepeso_test_X_ori'],
+            "classificacao_obesidade_test_X_ori": dataset['classificacao_obesidade_test_X_ori'],
+        }
+
+        dataset_for_testing = {
+            "X": dataset['test_X'],
+            "female_gender_test_X": dataset['female_gender_test_X'],
+            "male_gender_test_X": dataset['male_gender_test_X'],
+            "undefined_gender_test_X": dataset['undefined_gender_test_X'],
+            "more_than_or_equal_to_65_test_X":  dataset['more_than_or_equal_to_65_test_X'],
+            "less_than_65_test_X": dataset['less_than_65_test_X'],
+            "classificacao_undefined_test_X": dataset['classificacao_undefined_test_X'],
+            "classificacao_baixo_peso_test_X": dataset['classificacao_baixo_peso_test_X'],
+            "classificacao_normal_peso_test_X": dataset['classificacao_normal_peso_test_X'],
+            "classificacao_sobrepeso_test_X": dataset['classificacao_sobrepeso_test_X'],
+            "classificacao_obesidade_test_X": dataset['classificacao_obesidade_test_X'],
+        }
+
+        return dataset_for_training, dataset_for_validating, dataset_for_testing_ori, dataset_for_testing    
+
     #Cria a indicating mask para o test
     def create_indicating_mask(dataset_testing_ori, dataset_testing):
         indicating_mask = np.isnan(dataset_testing_ori) ^ np.isnan(dataset_testing)

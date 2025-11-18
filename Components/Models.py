@@ -120,6 +120,14 @@ class Models:
         
         return imputed_dataset
 
+    def imputation_by_subgroup(model, dataset_for_testing):
+        subgroup_imputation = []
+        for value in dataset_for_testing.values():
+            _dict = {"X": value}
+            result = model.predict(_dict)
+            subgroup_imputation.append(result['imputation'])    
+        return subgroup_imputation
+
 
         
         
