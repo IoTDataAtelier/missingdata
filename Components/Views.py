@@ -3,7 +3,7 @@ import numpy as np
 
 class Views:
 
-     def lorenz_curve_5(X1, X2, X3, X4, X5, labels=None, colors=None):
+     def lorenz_curve_5(X1, X2, X3, X4, X5, title, labels=None, colors=None):
         arrays = [X1, X2, X3, X4, X5]
         
         if labels is None:
@@ -24,8 +24,8 @@ class Views:
         # Linha de igualdade
         ax.plot([0, 1], [0, 1], color='black', linestyle='--', label='perfect equality')
 
-        ax.set_title("Lorenz Curves by Model for All Models")
-        ax.set_xlabel("Cummulative Share of Imputation Measurements")
+        ax.set_title(title)
+        ax.set_xlabel("Cummulative Share of Imputation Patients")
         ax.set_ylabel("Cummulative Share of Imputation Errors")
         ax.grid(True)
         ax.legend()

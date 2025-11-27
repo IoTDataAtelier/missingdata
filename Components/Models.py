@@ -122,11 +122,18 @@ class Models:
 
     def imputation_by_subgroup(model, dataset_for_testing):
         subgroup_imputation = []
-        for value in dataset_for_testing.values():
+        for value in dataset_for_testing:
             _dict = {"X": value}
             result = model.predict(_dict)
             subgroup_imputation.append(result['imputation'])    
         return subgroup_imputation
+    
+    def fix_imputation_gpvae(model_imputation):
+
+        for i in range(len(model_imputation)):
+            model_imputation[i] = np.squeeze(model_imputation[i], axis=1)
+
+        return model_imputation
 
 
         

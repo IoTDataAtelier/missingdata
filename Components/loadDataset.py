@@ -102,3 +102,24 @@ class loadDataset:
         nan_to_zero = np.nan_to_num(dataset)
 
         return nan_to_zero
+    
+
+    def dict_to_list(dataset):
+        dataset_list = []
+        for i in dataset.values():
+            dataset_list.append(i) 
+
+
+        return dataset_list
+    
+
+
+    def components_mae(dataset_for_testing_ori, dataset_for_testing):
+        test_X_indicating_mask = []
+        test_X_ori = []
+        for i in range(len(dataset_for_testing)):
+            test_X_indicating_mask.append(np.isnan(dataset_for_testing_ori[i]) ^ np.isnan(dataset_for_testing[i]))
+            test_X_ori.append(np.nan_to_num(dataset_for_testing_ori[i]))
+
+        return test_X_indicating_mask, test_X_ori
+    
