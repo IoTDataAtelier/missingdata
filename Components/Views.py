@@ -9,7 +9,7 @@ class Views:
         if labels is None:
             labels = ["SAITS", "BRITS", "US-GAN", "GP-VAE", "MRNN"]
         if colors is None:
-            colors = ['magenta', 'navy', 'olive', 'teal', 'salmon']
+            colors = ['blue', 'green', 'orange', 'purple', 'red']
         
         fig, ax = plt.subplots(figsize=[6,6])
 
@@ -25,7 +25,7 @@ class Views:
         ax.plot([0, 1], [0, 1], color='black', linestyle='--', label='perfect equality')
 
         ax.set_title(title)
-        ax.set_xlabel("Cummulative Share of Imputation Patients")
+        ax.set_xlabel("Cummulative Share of Imputation per Patients")
         ax.set_ylabel("Cummulative Share of Imputation Errors")
         ax.grid(True)
         ax.legend()
