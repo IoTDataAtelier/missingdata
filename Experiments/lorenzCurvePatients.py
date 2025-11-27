@@ -74,6 +74,6 @@ gpvae_ae_sum = rs.sum_aes(gpvae_ae_reshape)
 usgan_ae_sum = rs.sum_aes(usgan_ae_reshape)
 mrnn_ae_sum = rs.sum_aes(mrnn_ae_reshape)
 
-vs.lorenz_curve_5(saits_ae_sum, brits_ae_sum, gpvae_ae_sum, usgan_ae_sum, mrnn_ae_sum)
+vs.lorenz_curve_5(saits_ae_sum, brits_ae_sum, gpvae_ae_sum, usgan_ae_sum, mrnn_ae_sum, "Lorenz Curves by Model for All Models")
 
 
